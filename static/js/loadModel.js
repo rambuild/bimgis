@@ -38,11 +38,11 @@ function queryCameraStatus() {
 }
 
 require([
-    "bimsurfer/src/BimSurfer",
-    "bimsurfer/src/BimServerModelLoader",
-    "bimsurfer/src/StaticTreeRenderer",
-    "bimsurfer/src/MetaDataRenderer",
-    "bimsurfer/lib/domReady!",
+    "../../dependency/bimsurfer/src/BimSurfer",
+    "../../dependency/bimsurfer/src/BimServerModelLoader",
+    "../../dependency/bimsurfer/src/StaticTreeRenderer",
+    "../../dependency/bimsurfer/src/MetaDataRenderer",
+    "../../dependency/bimsurfer/lib/domReady!",
 ], function (
     BimSurfer,
     BimServerModelLoader,
