@@ -1,0 +1,142 @@
+#legTreeBox{
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 300000;
+    background-color: #fff;
+    width: 300px;
+    height: 70vh;
+    white-space: nowrap;
+}
+#legTreeBox .legTree {
+    display: block;
+    margin: auto;
+    position: relative;
+}
+
+#legTreeBox a {
+    text-decoration: none;
+    color: #434b5a;
+}
+
+#legTreeBox .synTree .iconxiangyou {
+    cursor: pointer;
+}
+
+#legTreeBox .synTree span {
+    position: relative;
+    top: -6px;
+    left: 10px;
+    color: #010102;
+    cursor: default;
+}
+
+#legTreeBox .leg_tree li {
+    list-style-type: none;
+    margin-left: -10px;
+    position: relative;
+    line-height: 22px;
+}
+
+#legTreeBox .leg_tree li a {
+    position: absolute;
+    top: -4px;
+    padding: 0px 10px;
+    cursor: pointer;
+}
+#legTreeBox .leg_tree li a:hover {
+    color: blue;
+}
+
+#legTreeBox .iconxiangyou {
+    position: absolute;
+    top: -5px;
+    left: -10px;
+}
+
+#legTreeBox .leg_tree li i {
+    font-size: 14px;
+}
+
+#legTreeBox .leg_tree li i~i:before {
+    position: relative;
+    top: -3px;
+    left: 5px;
+}
+
+#legTreeBox .legTree input {
+    cursor: pointer;
+}
+
+#legTreeBox .legTree span {
+    font-size: 13px;
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid #e2e2e2;
+    width: 10px;
+    line-height: 8px;
+    text-align: center;
+    height: 10px;
+    background-color: whitesmoke;
+    position: absolute;
+    left: 8px;
+    top: 4px;
+}
+
+#legTreeBox .legTree ul span {
+    left: -16px;
+}
+
+#legTreeBox .legTree ul {
+    list-style-type: none;
+    margin-top: 0px;
+    position: relative;
+}
+
+#legTreeBox .label {
+    width: 14px;
+    height: 14px;
+    display: inline-flex;
+    border: 1px solid #a5a5a5;
+    border-radius: 3px;
+}
+
+#legTreeBox .label i {
+    color: #0095ff;
+    position: absolute;
+    top: -2px;
+    left: -1px;
+    font-size: 18px !important;
+}
+
+#legTreeBox .label:hover {
+    box-shadow: 0 0 4px 0px #a0aefb;
+}
+
+/*.label i:hover {
+        box-shadow: 0 0 4px 0px #a0aefb;
+    }*/
+#legTreeBox .isShow {
+    position: absolute;
+    top: -3px;
+    left: -20px;
+}
+
+#legTreeBox input {
+    display: none;
+}
+
+#legTreeBox .isShow {
+    width: 14px;
+    margin-right: 5px;
+}
+#legTreeBox .toolBox{
+    position: fixed;
+    top: 0;
+    left: 30%;
+}
+
+#legTreeBox .legTree1 {
+    position: fixed;
+    top: 20px;
+}
