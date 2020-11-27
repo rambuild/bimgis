@@ -220,7 +220,7 @@ define(["./EventHandler", "./Request", "./Utils", "./getInfo"], function (EventH
                 oid = oid.split(':');
                 //var o = models[oid[0]].model.objects[oid[1]];
                 var o = models[oid[0]].apiModel.objects[oid[1]];
-                console.log(o)
+                console.log('sadsad',models)
                 renderAttributes(o);
 
                 o.getIsDefinedBy(function (isDefinedBy) {

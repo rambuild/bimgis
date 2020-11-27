@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div class="testBox" style="margin: 37rem 3rem 3rem; position: relative; z-index: 110000">
+			<div class="attrBox">
+				<p>材料显示与隐藏：</p>
+				<label><input type="checkbox" id="toggleAll" />全选/反选</label>
+				<!-- 厚板 -->
+				<label><input name="IfcAttr" type="checkbox" value="IfcSlab" />IfcSlab</label>
+				<!-- 墙体 -->
+				<label><input name="IfcAttr" type="checkbox" value="IfcWall" />IfcWall</label>
+				<label><input name="IfcAttr" type="checkbox" value="IfcWallStandardCase" />IfcWallStandardCase</label>
+				<!-- 家具 -->
+				<label><input name="IfcAttr" type="checkbox" value="IfcFurnishingElement" />IfcFurnishingElement</label>
+				<!-- 梁 -->
+				<label><input name="IfcAttr" type="checkbox" value="IfcBeam" />IfcBeam</label>
+				<!-- 无法实例化的抽象实体 -->
+				<label
+					><input
+						name="IfcAttr"
+						type="checkbox"
+						value="IfcBuildingElementProxy"
+					/>IfcBuildingElementProxy</label
+				>
+				<!-- 立柱 -->
+				<label><input name="IfcAttr" type="checkbox" value="IfcColumn" />IfcColumn</label>
+				<!-- 门 -->
+				<label><input name="IfcAttr" type="checkbox" value="IfcDoor" />IfcDoor</label>
+				<!-- 流动终端 -->
+				<label><input name="IfcAttr" type="checkbox" value="IfcFlowTerminal" />IfcFlowTerminal</label>
+				<br />
+				<!-- 打开状态的元件 -->
+				<label><input name="IfcAttr" type="checkbox" value="IfcOpeningElement" />IfcOpeningElement</label>
+				<!-- 栏杆 -->
+				<label><input name="IfcAttr" type="checkbox" value="IfcRailing" />IfcRailing</label>
+				<!-- 斜坡 -->
+				<label><input name="IfcAttr" type="checkbox" value="IfcRamp" />IfcRamp</label>
+				<!-- 占位空间 -->
+				<label><input name="IfcAttr" type="checkbox" value="IfcSpace" />IfcSpace</label>
+				<!-- 楼梯 -->
+				<label><input name="IfcAttr" type="checkbox" value="IfcStair" />IfcStair</label>
+				<!-- 运输元件 -->
+				<label><input name="IfcAttr" type="checkbox" value="IfcTransportElement" />IfcTransportElement</label>
+				<!-- 窗户 -->
+				<label><input name="IfcAttr" type="checkbox" value="IfcWindow" />IfcWindow</label>
+				<label><input name="IfcAttr" type="checkbox" value="IfcCovering" />IfcCovering</label>
+				<label><input name="IfcAttr" type="checkbox" value="IfcStairFlight" />IfcStairFlight</label>
+				<label><input name="IfcAttr" type="checkbox" value="IfcMember" />IfcMember</label>
+				<p>
+					<button id="testShow">显示</button>
+					<button id="testHide">隐藏</button>
+					<button id="querySelected">查询当前选择构件的ID</button>
+					<button id="changeColorById">改变构件颜色</button>
+					<button id="setVisibleByIds">显示当前选择构件</button>
+					<button id="setInVisibleByIds">隐藏当前选择构件</button>
+				</p>
+				<p>相机位置配置：</p>
+				<div class="rangeBox">
+					<label>
+						<span>eyeX:</span>
+						<span id="eyeX">0</span>
+						<input
+							name="cameraAttr"
+							id="sliderEyeX"
+							type="range"
+							min="-500"
+							max="500"
+							step="1"
+							value="0"
+							oninput="sliderEyeX(this.value)"
+						/>
+					</label>
+					<label>
+						<span>eyeY:</span>
+						<span id="eyeY">0</span>
+						<input
+							name="cameraAttr"
+							id="sliderEyeY"
+							type="range"
+							min="-500"
+							max="500"
+							step="1"
+							value="0"
+							oninput="sliderEyeY(this.value)"
+						/>
+					</label>
+					<label>
+						<span>eyeZ:</span>
+						<span id="eyeZ">0</span>
+						<input
+							name="cameraAttr"
+							id="sliderEyeZ"
+							type="range"
+							min="-500"
+							max="500"
+							step="1"
+							value="0"
+							oninput="sliderEyeZ(this.value)"
+						/>
+					</label>
+					<br />
+					<label>
+						<span>targetX:</span>
+						<span id="targetX">0</span>
+						<input
+							name="cameraAttr"
+							id="sliderTargetX"
+							type="range"
+							min="-500"
+							max="500"
+							step="1"
+							value="0"
+							oninput="sliderTargetX(this.value)"
+						/>
+					</label>
+					<label>
+						<span>targetY:</span>
+						<span id="targetY">0</span>
+						<input
+							name="cameraAttr"
+							id="sliderTargetY"
+							type="range"
+							min="-500"
+							max="500"
+							step="1"
+							value="0"
+							oninput="sliderTargetY(this.value)"
+						/>
+					</label>
+					<label>
+						<span>targetZ:</span>
+						<span id="targetZ">0</span>
+						<input
+							name="cameraAttr"
+							id="sliderTargetZ"
+							type="range"
+							min="-500"
+							max="500"
+							step="1"
+							value="0"
+							oninput="sliderTargetZ(this.value)"
+						/>
+					</label>
+					<br />
+					<label>
+						<span>upX:</span>
+						<span id="upX">0</span>
+						<input
+							name="cameraAttr"
+							id="sliderUpX"
+							type="range"
+							min="-1"
+							max="1"
+							step="0.01"
+							value="0"
+							oninput="sliderUpX(this.value)"
+						/>
+					</label>
+					<label>
+						<span>upY:</span>
+						<span id="upY">0</span>
+						<input
+							name="cameraAttr"
+							id="sliderUpY"
+							type="range"
+							min="-1"
+							max="1"
+							step="0.01"
+							value="0"
+							oninput="sliderUpY(this.value)"
+						/>
+					</label>
+					<label>
+						<span>upZ:</span>
+						<span id="upZ">0</span>
+						<input
+							name="cameraAttr"
+							id="sliderUpZ"
+							type="range"
+							min="-1"
+							max="1"
+							step="0.01"
+							value="0"
+							oninput="sliderUpZ(this.value)"
+						/>
+					</label>
+				</div>
+			</div>
+			<div class="btnBox">
+				<button id="testCameraMove">移动相机</button>
+				<button id="testCameraHold">取消移动</button>
+				<button id="startRecord">开始录制</button>
+				<button id="pauseRecord">暂停录制</button>
+				<button id="playRecord">播放录制</button>
+			</div>
+			<span style="width: 70px">正交配置（ortho）：</span>
+			<label>
+				<span>scale:</span>
+				<span id="orthoNum">0</span>
+				<input
+					name="cameraAttr"
+					type="range"
+					min="0"
+					max="300"
+					step="1"
+					value="0"
+					oninput="setOrthoNum(this.value)"
+				/>
+				<button id="setOrtho">设置为正交</button>
+			</label>
+			<span style="width: 70px">透视配置（persp）：</span>
+			<label>
+				<span>fovy:</span>
+				<span id="fovyNum">0</span>
+				<input
+					name="cameraAttr"
+					type="range"
+					min="0"
+					max="300"
+					step="1"
+					value="0"
+					oninput="setPerspNum(this.value)"
+				/>
+				<button id="setPersp">设置为透视</button>
+			</label>
+			<button id="queryCameraStatus" style="width: 110px">查询相机状态</button>
+			<button id="testSelection" style="width: 110px">预览构件</button>
+			<button id="getVisibility" style="width: 110px">getVisibility</button>
+			<p>配置保存与恢复：</p>
+			<button id="saveOptions" style="width: 110px">保存配置</button>
+			<button id="optionsReset" style="width: 110px">恢复配置</button>
+			<input id="confNum" type="number" style="width: 50px" value="0" />
+			<button id="cusReset" style="width: 110px">自定义恢复配置</button>
+			<p>其他接口：</p>
+			<button id="getTypes">getTypes</button>
+			<button id="aaa">aaa</button>
+		</div>
+	</body>
+</html>
