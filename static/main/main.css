@@ -2,8 +2,14 @@
   box-sizing: border-box;
   font-family: "Open Sans";
 }
+body {
+  margin: 0;
+  padding: 0;
+}
 #mainContainer {
+  width: 100%;
   height: 100vh;
+  overflow: hidden;
   font-size: 10pt;
 }
 #mainContainer #topSection {
@@ -48,7 +54,7 @@
 #mainContainer #contentWrapper #treeContainer #legTreeBox {
   display: flex;
   flex-direction: column;
-  visibility: hidden;
+  user-select: none;
 }
 #mainContainer #contentWrapper #treeContainer #legTreeBox .treeTop {
   background-color: #050505;
@@ -60,6 +66,7 @@
   display: flex;
   padding: 0 10px;
   justify-content: space-between;
+  cursor: move;
 }
 #mainContainer #contentWrapper #treeContainer #legTreeBox .treeTop span {
   font-weight: bold;
@@ -88,10 +95,12 @@
   z-index: 100001;
   display: flex;
   flex-direction: column;
+  user-select: none;
 }
 #mainContainer #contentWrapper #detailBox .detailTop {
   background-color: #050505;
   border-bottom: solid 1px #666;
+  cursor: move;
   color: #fff;
   width: 100%;
   height: 45px;
@@ -133,20 +142,19 @@
   color: #ababab;
   cursor: pointer;
 }
-#mainContainer #contentWrapper .roamingPath {
+#mainContainer #contentWrapper #roamingPath {
   width: 300px;
   height: 420px;
   position: absolute;
   z-index: 100001;
-  right: 400px;
+  right: 100px;
   top: 10px;
-  display: flex;
-  flex-direction: column;
-  display: none;
+  user-select: none;
 }
-#mainContainer #contentWrapper .roamingPath .top {
+#mainContainer #contentWrapper #roamingPath .top {
   width: 100%;
   height: 45px;
+  cursor: move;
   color: #fff;
   line-height: 45px;
   padding: 0 10px;
@@ -155,14 +163,14 @@
   background-color: #050505;
   border-bottom: 1px solid #aaa;
 }
-#mainContainer #contentWrapper .roamingPath .top span {
+#mainContainer #contentWrapper #roamingPath .top span {
   font-weight: bold;
   font-size: 18px;
 }
-#mainContainer #contentWrapper .roamingPath .top .icon-close {
+#mainContainer #contentWrapper #roamingPath .top .icon-close {
   cursor: pointer;
 }
-#mainContainer #contentWrapper .roamingPath .btnBox {
+#mainContainer #contentWrapper #roamingPath .btnBox {
   width: 100%;
   height: 50px;
   background-color: rgba(0, 0, 0, 0.5);
@@ -170,17 +178,17 @@
   line-height: 50px;
   padding-left: 10px;
 }
-#mainContainer #contentWrapper .roamingPath .btnBox button {
+#mainContainer #contentWrapper #roamingPath .btnBox button {
   outline: none;
   border-radius: 6px;
-  border: solid 1px #179B84;
-  color: #179B84;
+  border: solid 1px #179b84;
+  color: #179b84;
   background: transparent;
   padding: 3px 20px;
   cursor: pointer;
   font-size: 14px;
 }
-#mainContainer #contentWrapper .roamingPath .pathList {
-  flex: 1;
+#mainContainer #contentWrapper #roamingPath .pathList {
+  height: 325px;
   background-color: rgba(0, 0, 0, 0.5);
 }

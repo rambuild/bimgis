@@ -2,8 +2,14 @@
 	box-sizing: border-box;
 	font-family: "Open Sans";
 }
+body {
+	margin: 0;
+	padding: 0;
+}
 #mainContainer {
+	width: 100%;
 	height: 100vh;
+	overflow: hidden;
 	font-size: 10pt;
 	#topSection {
 		padding-left: 10px;
@@ -46,7 +52,7 @@
 			#legTreeBox {
 				display: flex;
 				flex-direction: column;
-				visibility: hidden;
+				user-select: none;
 				.treeTop {
 					background-color: #050505;
 					border-bottom: solid 1px #666;
@@ -57,6 +63,7 @@
 					display: flex;
 					padding: 0 10px;
 					justify-content: space-between;
+					cursor: move;
 					span {
 						font-weight: bold;
 						font-size: 18px;
@@ -88,9 +95,11 @@
 			z-index: 100001;
 			display: flex;
 			flex-direction: column;
+			user-select: none;
 			.detailTop {
 				background-color: #050505;
 				border-bottom: solid 1px #666;
+				cursor: move;
 				color: #fff;
 				width: 100%;
 				height: 45px;
@@ -101,10 +110,10 @@
 				span {
 					font-weight: bold;
 					font-size: 18px;
-                }
-                .icon-close{
-                    cursor: pointer;
-                }
+				}
+				.icon-close {
+					cursor: pointer;
+				}
 			}
 			#dataContainer {
 				flex: 1;
@@ -132,57 +141,57 @@
 				color: #ababab;
 				cursor: pointer;
 			}
-        }
-        .roamingPath{
-            width: 300px;
+		}
+		// 路径漫游
+		#roamingPath {
+			width: 300px;
 			height: 420px;
 			position: absolute;
 			z-index: 100001;
-			right: 400px;
-            top: 10px;
-            display: flex;
-            flex-direction: column;
-            display:none;
-            .top{
-                width: 100%;
-                height: 45px;
-                color: #fff;
-                line-height: 45px;
-                padding: 0 10px;
-                display: flex;
-                justify-content: space-between;
-                background-color: #050505;
-                border-bottom: 1px solid #aaa;
-                span {
+			right: 100px;
+			top: 10px;
+			user-select: none;
+			.top {
+				width: 100%;
+				height: 45px;
+				cursor: move;
+				color: #fff;
+				line-height: 45px;
+				padding: 0 10px;
+				display: flex;
+				justify-content: space-between;
+				background-color: #050505;
+				border-bottom: 1px solid #aaa;
+				span {
 					font-weight: bold;
 					font-size: 18px;
-                }
-                .icon-close{
-                    cursor: pointer;
-                }
-            }            
-            .btnBox{
-                width: 100%;
-                height: 50px;
-                background-color: rgba(0, 0, 0, 0.5);
-                border-bottom: 1px solid #aaa;
-                line-height: 50px;
-                padding-left: 10px;
-                button{
-                    outline: none;
-                    border-radius: 6px;
-                    border:solid 1px #179B84;
-                    color: #179B84;
-                    background:transparent;
-                    padding: 3px 20px;
-                    cursor: pointer;
-                    font-size:14px;
-                }
-            }
-            .pathList{
-                flex:1;
-                background-color: rgba(0, 0, 0, 0.5);
-            }
-        }
+				}
+				.icon-close {
+					cursor: pointer;
+				}
+			}
+			.btnBox {
+				width: 100%;
+				height: 50px;
+				background-color: rgba(0, 0, 0, 0.5);
+				border-bottom: 1px solid #aaa;
+				line-height: 50px;
+				padding-left: 10px;
+				button {
+					outline: none;
+					border-radius: 6px;
+					border: solid 1px #179b84;
+					color: #179b84;
+					background: transparent;
+					padding: 3px 20px;
+					cursor: pointer;
+					font-size: 14px;
+				}
+			}
+			.pathList {
+				height: 325px;
+				background-color: rgba(0, 0, 0, 0.5);
+			}
+		}
 	}
 }

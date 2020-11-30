@@ -14,61 +14,82 @@
 	</head>
 
 	<body>
-		<div id="mainContainer">
-			<div id="topSection">
-				<h1>BIM-GIS平台</h1>
-			</div>
-			<div id="contentWrapper">
-				<div id="viewerContainer"></div>
-				<!-- 目录树 -->
-				<div id="treeContainer" class="bimsurfer-static-tree">
-                    <div class="treeIcon iconfont icon-tree" title="目录树">
-                    </div>
-					<div id="legTreeBox">
-						<div class="treeTop">
-                            <span>目录树</span>
-                            <span class="iconfont icon-close"></span>
-						</div>
-						<div class="legTree"></div>
-						<div class="toolBox">
-							<button id="showSelected">显示选中</button>
-							<button id="hideSelected">隐藏选中</button>
-						</div>
-					</div>
+		<div id="app">
+			<div id="mainContainer">
+				<div id="topSection">
+					<h1>BIM-GIS平台</h1>
 				</div>
-				<!-- 构件详情 -->
-				<div id="detailBox" class="bimsurfer-metadata">
-					<div class="detailTop">
-                        <span>构件详情</span>
-                        <span class="iconfont icon-close"></span>
-					</div>
-					<div id="dataContainer"></div>
-				</div>
-				<!-- 工具栏 -->
-				<div class="toolsBox">
-					<div class="toolsItem iconfont icon-home mainPersp" title="主视角"></div>
-                    <div class="toolsItem iconfont icon-erji-lujingguanli" title="路径漫游"></div>
-                    <div class="toolsItem iconfont icon-xiangqing" title="构件详情"></div>
-                </div>
-                <!-- 漫游路径框体 -->
-                <div class="roamingPath">
-                    <div class="top">
-                        <span>路径漫游</span>
-                        <span class="iconfont icon-close"></span>
-                    </div>
-                    <div class="btnBox">
-                        <button class="iconfont icon-plus">添加漫游点</button>
-                    </div>
-                    <div class="pathList">
+				<div id="contentWrapper">
+					<div id="viewerContainer"></div>
+					<!-- 目录树 -->
+					<div id="treeContainer" class="bimsurfer-static-tree">
+						<div class="treeIcon iconfont icon-tree" title="目录树" @click='toggleTree' v-show="!treeBoxShow"></div>
+						<div id="legTreeBox" class="touchmove" v-show="treeBoxShow">
+							<div class="treeTop">
+								<span>目录树</span>
+								<span class="iconfont icon-close" @click="treeBoxShow = false"></span>
+							</div>
+							<div class="legTree"></div>
 
-                    </div>
-                </div>
+							<div class="toolBox">
+								<button id="showSelected">显示选中</button>
+								<button id="hideSelected">隐藏选中</button>
+							</div>
+						</div>
+					</div>
+					<!-- 构件详情框体 -->
+					<div id="detailBox" class="bimsurfer-metadata touchmove" v-show="detailBoxShow">
+						<div class="detailTop">
+							<span>构件详情</span>
+							<span class="iconfont icon-close" @click="detailBoxShow=false"></span>
+						</div>
+						<div id="dataContainer"></div>
+					</div>
+					<!-- 工具栏 -->
+					<div class="toolsBox">
+						<div
+							class="toolsItem iconfont icon-home mainPersp"
+							title="主视角"
+							@click="swithchMainView"
+						></div>
+						<div
+							class="toolsItem iconfont icon-erji-lujingguanli"
+							title="路径漫游"
+							@click="roamingBoxShow = !roamingBoxShow"
+						></div>
+						<div
+							class="toolsItem iconfont icon-xiangqing"
+							title="构件详情"
+							@click="detailBoxShow = !detailBoxShow"
+						></div>
+					</div>
+					<!-- 漫游路径框体 -->
+					<div id="roamingPath" class="touchmove" v-show="roamingBoxShow">
+						<div class="top">
+							<span>路径漫游</span>
+							<span class="iconfont icon-close" @click="roamingBoxShow=false"></span>
+						</div>
+						<div class="btnBox">
+							<button class="iconfont icon-plus" @click='addRoamingPath'>添加漫游点</button>
+						</div>
+						<template class="pathList">
+							<div class="pathList">
+								<div class="item" v-for="(i,index) in pathList" :key="index">{{i.q}}</div>
+							</div>
+						</template>
+					</div>
+				</div>
 			</div>
 		</div>
 
 		<!-- <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script> -->
 		<!-- <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script> -->
 		<script type="text/javascript" src="./static/js/jquery-2.0.0.min.js"></script>
+		<script type="text/javascript" src="./static/main/tools.js"></script>
+		<script type="text/javascript" src="./static/js/vue.js"></script>
+		<script type="text/javascript" src="./static/js/axios.min.js"></script>
+		<script type="text/javascript" src="./static/js/cusAxios.js"></script>
+		<script src="./static/js/load2Local.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="./static/js/require.js"></script>
 		<script type="text/javascript" src="./static/js/spop.js"></script>
 
@@ -86,9 +107,9 @@
 		<script type="text/javascript" src="./static/js/loadModel.js"></script>
 
 		<script type="text/javascript" src="./static/main/main.js"></script>
-		<script type="text/javascript" src="./static/main/tools.js"></script>
 		<!-- 树形插件 -->
 		<script src="./static/leg-tree/leg-tree.js" type="text/javascript" charset="utf-8"></script>
 		<script src="./static/leg-tree/cuslegTree.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./static/main/vuePart.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 </html>

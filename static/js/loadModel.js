@@ -72,7 +72,7 @@ require([
 				}
 			}
 		}
-		
+
 		console.log(await bimSurferModel.getTree()) // **************************************************************************
 		// bimSurferModel.getTree().then(function (tree) {
 		//     // 传递创建左侧构件树的div_ID
@@ -217,6 +217,11 @@ require([
 
 			function getModelOidAndName(thisModel) {
 				var modelObj = thisModel.apiModel.objects
+				console.log("modelObj-------------", modelObj)
+				// load2Local("demo.txt", JSON.stringify(modelObj))
+				
+
+
 				Object.keys(modelObj).forEach(function (key) {
 					if (modelObj[key].object.hasChildren === undefined) {
 						var option = document.createElement("option")
