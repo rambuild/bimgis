@@ -1,14 +1,16 @@
-
 var app
 function initApp() {
 	app = new Vue({
 		el: "#app",
-		data: {
-			pathList: [],
-			detailBoxShow: false,
-			roamingBoxShow: false,
-			treeBoxShow: false,
-			treeLoadFlag: false
+		data() {
+			return {
+				pathList: [],
+				detailBoxShow: false,
+				roamingBoxShow: false,
+				treeBoxShow: false,
+				treeLoadFlag: false,
+				teste: ''
+			}
 		},
 		mounted() {
 			// 引入Jquery方法
@@ -39,11 +41,10 @@ function initApp() {
 					setTimeout(() => {
 						// 生成项目树
 						leg.tree({
-							ele: ".legTree", //选者
-							data: [treeData], //数据
-							arrs: arrs, //选中的id
-							cascade: true //级联
-							// onAsync:true//暂无此
+							ele: ".legTree", // 渲染节点
+							data: [treeData], // 数据
+							arrs: arrs, // 选中的id
+							cascade: true // 级联
 						})
 						this.treeLoadFlag = true
 						// load2Local("tree.txt", JSON.stringify(treeData))
@@ -60,9 +61,9 @@ function initApp() {
 			// 添加漫游路径
 			addRoamingPath() {
 				let a = bimSurfer.getSnapshot({
-					width:200,
-					height:200,
-					format:"png"				
+					width: 200,
+					height: 200,
+					format: "png"
 				})
 				console.log(a)
 				let length = this.pathList.length
