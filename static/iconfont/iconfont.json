@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "10265867",
+      "name": "triangle",
+      "font_class": "triangle",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
       "icon_id": "13896043",
       "name": "plus",
       "font_class": "plus",

@@ -416,6 +416,11 @@ define(["./Notifier", "./BimServerModel", "./PreloadQuery", "./BimServerGeometry
             return viewer.getWorldBoundary(objectId, result);
         };
 
+        // 自定义的方法
+        this.getSnapshot = function(params){
+            return viewer.getSnapshot(params)
+        }
+
        /**
          * Destroys the BIMSurfer
          */

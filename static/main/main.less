@@ -78,7 +78,7 @@ body {
 					padding: 5px;
 					background-color: rgba(6, 6, 6, 0.8);
 					color: #fff;
-					overflow-y: scroll;
+					overflow-y: auto;
 					a {
 						color: #fff;
 					}
@@ -120,7 +120,7 @@ body {
 				padding: 0 10px 10px;
 				background-color: rgba(6, 6, 6, 0.8);
 				color: #fff;
-				overflow-y: scroll;
+				overflow-y: auto;
 			}
 		}
 		.toolsBox {
@@ -173,7 +173,7 @@ body {
 			.btnBox {
 				width: 100%;
 				height: 50px;
-				background-color: rgba(0, 0, 0, 0.5);
+				background-color: rgba(0, 0, 0, 0.7);
 				border-bottom: 1px solid #aaa;
 				line-height: 50px;
 				padding-left: 10px;
@@ -183,14 +183,61 @@ body {
 					border: solid 1px #179b84;
 					color: #179b84;
 					background: transparent;
-					padding: 3px 20px;
+					padding: 5px 20px;
 					cursor: pointer;
 					font-size: 14px;
 				}
 			}
 			.pathList {
-				height: 325px;
-				background-color: rgba(0, 0, 0, 0.5);
+				height: 280px;
+				background-color: rgba(0, 0, 0, 0.7);
+				padding: 5px 0;
+				overflow-y: auto;
+				.item{
+					padding: 0 10px;
+					height: 30px;
+					line-height: 30px;
+					color: #fff;
+					position: relative;
+					.itemOptions{
+						position: absolute;
+						top:0;
+						bottom: 0;
+						right: 5px;
+						margin: auto 0;
+						color: #179b84;
+						cursor: pointer;
+					}
+					&:hover{
+						background-color: rgba(102, 102, 102, 0.6);
+					}
+				}
+			}
+			.playRoamingPath{
+				height: 45px;
+				line-height: 45px;
+				padding-left: 10px;
+				border-top: solid 1px #aaa;
+				background-color: rgba(0, 0, 0, 0.7);
+				button {
+					outline: none;
+					border-radius: 6px;
+					border: solid 1px #aaa;
+					color: #aaa;
+					background: transparent;
+					padding: 3px 20px;
+					cursor: pointer;
+					font-size: 12px;
+					padding: 5px 20px;
+					&::before{
+						margin-right: 5px;
+					}
+				}
+				.active{					
+					border: solid 1px #179b84;
+					color: #fff;
+					background-color: #179b84;
+				}
 			}
 		}
 	}
