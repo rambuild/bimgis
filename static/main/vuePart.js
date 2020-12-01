@@ -49,6 +49,7 @@ function initApp() {
 					// 	}, 1000)
 					// }
 					initZTree()
+					this.treeLoadFlag = true
 				}
 			},
 			// 添加漫游路径
