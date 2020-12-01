@@ -284,7 +284,9 @@ define(["./Notifier", "./BimServerModel", "./PreloadQuery", "./BimServerGeometry
         this.getVisibility = function(){
             viewer.getVisibility();
         }
-
+        this.hideAll = function(){
+            viewer.hideAll()
+        }
         /**
          * Selects/deselects objects specified by id.
          **

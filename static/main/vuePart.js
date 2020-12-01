@@ -5,11 +5,16 @@ function initApp() {
 		data() {
 			return {
 				pathList: [],
+				curRoamingTime: "",
 				detailBoxShow: false,
 				roamingBoxShow: false,
 				treeBoxShow: false,
 				treeLoadFlag: false,
-				teste: ''
+				treeData: [],
+				treeProps: {
+					label: "name",
+					children: "children"
+				}
 			}
 		},
 		mounted() {
@@ -31,48 +36,36 @@ function initApp() {
 				// 只加载一次目录树
 				this.treeBoxShow = true
 				if (!this.treeLoadFlag) {
-					spop({
-						template: `正在加载目录树。。。`,
-						group: "legTree",
-						style: "warn",
-						autoclose: false,
-						position: "top-left"
-					})
-					setTimeout(() => {
-						// 生成项目树
-						leg.tree({
-							ele: ".legTree", // 渲染节点
-							data: [treeData], // 数据
-							arrs: arrs, // 选中的id
-							cascade: true // 级联
-						})
-						this.treeLoadFlag = true
-						// load2Local("tree.txt", JSON.stringify(treeData))
-						spop({
-							template: "加载完成",
-							group: "legTree",
-							style: "success",
-							autoclose: 1500,
-							position: "top-left"
-						})
-					}, 1000)
+					// if (treeData.flag) {
+					// 	this.treeData.push(treeData.data)
+					// 	this.treeLoadFlag = true
+					// } else {
+					// 	let pushTree = setInterval(() => {
+					// 		if (treeData.flag) {
+					// 			this.treeData.push(treeData.data)
+					// 			this.treeLoadFlag = true
+					// 			clearInterval(pushTree)
+					// 		}
+					// 	}, 1000)
+					// }
+					initZTree()
 				}
 			},
 			// 添加漫游路径
 			addRoamingPath() {
-				let a = bimSurfer.getSnapshot({
-					width: 200,
-					height: 200,
-					format: "png"
-				})
-				console.log(a)
 				let length = this.pathList.length
 				let conf = bimSurfer.saveReset({ camera: true })
+				// 如果输入的不是数字则默认为1
+				let duration = isNaN(parseFloat(this.curRoamingTime)) ? 1 : parseFloat(this.curRoamingTime)
 				this.pathList.push({
-					title: `漫游点${length + 1}`,
-					conf
+					title: `漫游点${length + 1}（${duration}s）`,
+					conf: {
+						camera: {
+							...conf.camera,
+							duration
+						}
+					}
 				})
-				console.log(this.pathList)
 			},
 			// 播放漫游
 			playRoaming() {
@@ -83,24 +76,14 @@ function initApp() {
 							clearInterval(interval)
 							return
 						}
-						bimSurfer.resetByConf(this.pathList[i].conf, {
-							camera: true,
-							selected: true,
-							visible: true,
-							colors: true,
-						})
+						bimSurfer.resetByConf(this.pathList[i].conf, { camera: true })
 						i++
-					}, 1000);
+					}, this.pathList[i].conf.camera.duration * 1000)
 				}
 			},
 			// 播放单项漫游路径
 			playRoamingItems(index) {
-				bimSurfer.resetByConf(this.pathList[index].conf, {
-					camera: true,
-					selected: true,
-					visible: true,
-					colors: true,
-				})
+				bimSurfer.resetByConf(this.pathList[index].conf, { camera: true })
 			},
 			// 删除单项漫游路径
 			delRoamingItems(index) {

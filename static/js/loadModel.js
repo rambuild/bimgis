@@ -1,4 +1,7 @@
-var treeData = {}
+var treeData = {
+	data: [],
+	flag: false
+}
 var tools = {}
 // 获取相机状态并保存
 function queryCameraStatus() {
@@ -46,10 +49,10 @@ require([
 	"../../dependency/bimsurfer/lib/domReady!"
 ], function (BimSurfer, BimServerModelLoader, StaticTreeRenderer, MetaDataRenderer) {
 	async function processBimSurferModel(bimSurferModel) {
-		treeData = await bimSurferModel.getTree()
+		treeData.data = await bimSurferModel.getTree()
 		console.log(bimSurferModel)
 		delete treeData.id
-		for (var i of treeData.children) {
+		for (var i of treeData.data.children) {
 			if (i.children) {
 				delete i.id
 				for (var j of i.children) {
@@ -72,7 +75,7 @@ require([
 				}
 			}
 		}
-
+		treeData.flag = true
 		console.log(await bimSurferModel.getTree()) // **************************************************************************
 		// bimSurferModel.getTree().then(function (tree) {
 		//     // 传递创建左侧构件树的div_ID
@@ -219,8 +222,6 @@ require([
 				var modelObj = thisModel.apiModel.objects
 				console.log("modelObj-------------", modelObj)
 				// load2Local("demo.txt", JSON.stringify(modelObj))
-				
-
 
 				Object.keys(modelObj).forEach(function (key) {
 					if (modelObj[key].object.hasChildren === undefined) {

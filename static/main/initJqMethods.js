@@ -1,5 +1,60 @@
-function initJqMethods() {
+// 目录树初始化设置
+var treeObj, allNodes
+var zTreeSetting = {
+	check: {
+		enable: true,
+		chkStyle: "checkbox" //显示 checkbox 选择框，默认checkbox可选择值radio
+	},
+	callback: {
+		onCheck: zTreeOnCheck,
+		onClick: zTreeOnClick
+	}
+}
+// 初始化目录树
+function initZTree() {
+	treeObj = $.fn.zTree.init($("#regionZTree"), zTreeSetting, [treeData.data])
+	allNodes = treeObj.getNodes()
+	treeObj.checkAllNodes(true)
+}
+// 节点选中事件
+function zTreeOnCheck(event, treeId, treeNode) {
+	var selIdsArr = []
+	let selNodes = treeObj.getCheckedNodes()
+	// 将叶子节点的id存在一个数组中
+	selNodes.filter(i => {
+		if (!i.children) {
+			selIdsArr.push(`${lastRevisionId}:${i.id}`)
+		}
+	})
+	try {
+		// 先隐藏所有构件
+		bimSurfer.hideAll()
+		bimSurfer.setVisibility({
+			ids: selIdsArr,
+			visible: true
+		})
+	} catch (e) {}
+}
+// 点击树事件
+function zTreeOnClick(event, treeId, treeNode) {
+	// 只处理叶子节点
+	if (!treeNode.children) {
+		let curItem = [`${lastRevisionId}:${treeNode.id}`]
+		try {
+			bimSurfer.viewFit({
+				ids: curItem,
+				animate: true // 设置是否有动画效果
+			})
+			bimSurfer.setSelection({
+				ids: curItem,
+				clear: true,
+				selected: true
+			})
+		} catch (e) {}
+	}
+}
 
+function initJqMethods() {
 	$(".toolsBox .toolsItem,.treeIcon").hover(
 		function () {
 			$(this).css("color", "#CDCDCD")
@@ -13,7 +68,7 @@ function initJqMethods() {
 	// // 显示目录树
 	// $(".treeIcon").on("click", function () {
 	// 	$(this).hide()
-	// 	$("#legTreeBox").css("visibility", "visible")
+	// 	$("#treeBox").css("visibility", "visible")
 	// 	// 加载过tree之后再次点击树形icon就不执行加载动作
 	// 	if (!treeFlag) {
 	// 		spop({
@@ -46,8 +101,8 @@ function initJqMethods() {
 	// 	}
 	// })
 	// // 目录树关闭按钮
-	// $("#legTreeBox .icon-close").on("click", function () {
-	// 	$("#legTreeBox").css("visibility", "hidden")
+	// $("#treeBox .icon-close").on("click", function () {
+	// 	$("#treeBox").css("visibility", "hidden")
 	// 	$(".treeIcon").show()
 	// })
 	// // tools主视角恢复
@@ -79,24 +134,24 @@ function initJqMethods() {
 	var _detailBox = $("#detailBox .detailTop")
 	var detailBox_x = "80%"
 	var detailBox_y = 10
-	var _legTreeBox = $("#legTreeBox .treeTop")
-	var legTreeBox_x = 10
-	var legTreeBox_y = 10
+	var _treeBox = $("#treeBox .treeTop")
+	var treeBox_x = 10
+	var treeBox_y = 10
 	var _roamingPath = $("#roamingPath .top")
 	var roamingPath_x = "60%"
 	var roamingPath_y = 10
 
-	var ids = [_detailBox, _legTreeBox, _roamingPath]
-	var ids_x = [detailBox_x, legTreeBox_x, roamingPath_x]
-	var ids_y = [detailBox_y, legTreeBox_y, roamingPath_y]
+	var ids = [_detailBox, _treeBox, _roamingPath]
+	var ids_x = [detailBox_x, treeBox_x, roamingPath_x]
+	var ids_y = [detailBox_y, treeBox_y, roamingPath_y]
 
 	$.each(ids, function (i, _this) {
-		// _this.parent(".touchmove").css({
+		// _this.parents(".touchmove").css({
 		// 	position: "absolute",
 		// 	left: ids_x[i],
 		// 	top: ids_y[i]
 		// })
-		_this.mousedown(function (e) {
+		_this.on("mousedown", function (e) {
 			// 不点击关闭按钮的前提下再执行move方法
 			if (!e.target.className.includes("icon-close")) {
 				beginmove(e, _this)
@@ -126,7 +181,7 @@ function initJqMethods() {
 		var py = sy - cy
 
 		// 绑定鼠标的移动事件，因为光标在DIV元素外面也要有效果，所以要用doucment的事件，而不用DIV元素的事件
-		$(document).bind("mousemove", function (ev) {
+		$(document).on("mousemove", function (ev) {
 			// 当前鼠标的位置（移动后，鼠标弹起）
 
 			// 计算当前元素的边缘范围
@@ -134,47 +189,46 @@ function initJqMethods() {
 			var cx = offset.left
 			var cy = offset.top
 			var cW = _this[0].offsetWidth
-			var cH = _this.parent(".touchmove")[0].offsetHeight
+			var cH = _this.parents(".touchmove")[0].offsetHeight
 			var cR = cx + cW
 			var cB = cy + cH
 
 			sx = ev.pageX
 			sy = ev.pageY
-
 			// 当前元素位置
 			var _x = sx - px
 			var _y = sy - py - 72
 			// 设定元素位置
-			_this.parent(".touchmove").css({
+			_this.parents(".touchmove").css({
 				left: _x,
 				top: _y
 			})
 			// 元素超过边缘范围时的处理方法
 			if (cx < contleft) {
 				console.log("左边超过范围")
-				$(this).unbind("mousemove")
-				_this.parent(".touchmove").css({
+				$(this).off("mousemove")
+				_this.parents(".touchmove").css({
 					left: contleft
 				})
 			}
 			if (cR > contRight) {
 				console.log("右边超过范围")
-				$(this).unbind("mousemove")
-				_this.parent(".touchmove").css({
+				$(this).off("mousemove")
+				_this.parents(".touchmove").css({
 					left: contRight - cW - 20
 				})
 			}
 			if (cy < contTop) {
 				console.log("上边超过范围")
-				$(this).unbind("mousemove")
-				_this.parent(".touchmove").css({
+				$(this).off("mousemove")
+				_this.parents(".touchmove").css({
 					top: contTop
 				})
 			}
 			if (cB > contBottom) {
 				console.log("下边超过范围")
-				$(this).unbind("mousemove")
-				_this.parent(".touchmove").css({
+				$(this).off("mousemove")
+				_this.parents(".touchmove").css({
 					top: contBottom - cH - 200
 				})
 			}
@@ -189,8 +243,8 @@ function initJqMethods() {
 			})
 		})
 		// 当鼠标按键弹起时，解除元素移动，让元素停留在当前位置
-		$(document).mouseup(function () {
-			$(this).unbind("mousemove")
+		$(document).on("mouseup", function () {
+			$(this).off("mousemove")
 			// 记录元素位置
 			$.each(ids, function (i, _this) {
 				// 当前元素的位置
@@ -203,9 +257,4 @@ function initJqMethods() {
 			})
 		})
 	}
-
-	// 路径漫游框体事件
-	$("#roamingPath .pathList .item").on('click',()=>{
-		console.log('a')
-	})
 }

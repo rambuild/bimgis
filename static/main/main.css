@@ -34,7 +34,7 @@ body {
   position: absolute;
   left: 5px;
   top: 10px;
-  width: 250px;
+  width: 300px;
   height: 420px;
   z-index: 100001;
 }
@@ -51,12 +51,15 @@ body {
   line-height: 50px;
   cursor: pointer;
 }
-#mainContainer #contentWrapper #treeContainer #legTreeBox {
+#mainContainer #contentWrapper #treeContainer #treeBox {
   display: flex;
+  width: 100%;
+  height: 100%;
+  position: absolute;
   flex-direction: column;
   user-select: none;
 }
-#mainContainer #contentWrapper #treeContainer #legTreeBox .treeTop {
+#mainContainer #contentWrapper #treeContainer #treeBox .treeTop {
   background-color: #050505;
   border-bottom: solid 1px #666;
   color: #fff;
@@ -68,22 +71,22 @@ body {
   justify-content: space-between;
   cursor: move;
 }
-#mainContainer #contentWrapper #treeContainer #legTreeBox .treeTop span {
+#mainContainer #contentWrapper #treeContainer #treeBox .treeTop span {
   font-weight: bold;
   font-size: 18px;
 }
-#mainContainer #contentWrapper #treeContainer #legTreeBox .treeTop .icon-close {
+#mainContainer #contentWrapper #treeContainer #treeBox .treeTop .icon-close {
   cursor: pointer;
 }
-#mainContainer #contentWrapper #treeContainer #legTreeBox .legTree {
-  width: 100%;
+#mainContainer #contentWrapper #treeContainer #treeBox .treeContent {
   flex: 1;
   padding: 5px;
   background-color: rgba(6, 6, 6, 0.8);
   color: #fff;
+  overflow-x: auto;
   overflow-y: auto;
 }
-#mainContainer #contentWrapper #treeContainer #legTreeBox .legTree a {
+#mainContainer #contentWrapper #treeContainer #treeBox .treeContent a {
   color: #fff;
 }
 #mainContainer #contentWrapper #detailBox {
@@ -171,14 +174,18 @@ body {
   cursor: pointer;
 }
 #mainContainer #contentWrapper #roamingPath .btnBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   height: 50px;
   background-color: rgba(0, 0, 0, 0.7);
   border-bottom: 1px solid #aaa;
   line-height: 50px;
-  padding-left: 10px;
+  padding: 0 10px;
 }
 #mainContainer #contentWrapper #roamingPath .btnBox button {
+  height: 35px;
   outline: none;
   border-radius: 6px;
   border: solid 1px #179b84;
@@ -187,6 +194,14 @@ body {
   padding: 5px 20px;
   cursor: pointer;
   font-size: 14px;
+}
+#mainContainer #contentWrapper #roamingPath .btnBox .el-input {
+  width: 50%;
+}
+#mainContainer #contentWrapper #roamingPath .btnBox .el-input input {
+  background: none;
+  height: 35px;
+  color: #eee;
 }
 #mainContainer #contentWrapper #roamingPath .pathList {
   height: 280px;

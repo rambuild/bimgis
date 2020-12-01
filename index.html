@@ -1,121 +1,145 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>BIM-GIS平台</title>
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>BIM-GIS平台</title>
+		<link rel="stylesheet" href="./static/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="./static/main/main.css" />
+		<link rel="stylesheet" href="./static/css/spop.css" />
+		<link rel="stylesheet" href="./static/iconfont/iconfont.css" />
+		<link rel="stylesheet" href="./static/css/elementUI/elementUI.css" />
+		<link rel="stylesheet" href="./static/css/zTree/zTreeStyle.css" />
+	</head>
 
-	<link rel="stylesheet" href="./static/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="./static/main/main.css" />
-	<link rel="stylesheet" href="./static/leg-tree/font/iconfont.css" type="text/css" />
-	<link rel="stylesheet" href="./static/leg-tree/leg-tree.css" />
-	<link rel="stylesheet" href="./static/css/spop.css" />
-	<link rel="stylesheet" href="./static/iconfont/iconfont.css" />
-	<link rel="stylesheet" href="./static/css/elementUI.css" />
-</head>
-
-<body>
-	<div id="app">
-		<template>
-			<div id="mainContainer">
-				<div id="topSection">
-					<h1>BIM-GIS平台</h1>
-				</div>
-				<div id="contentWrapper">
-					<div id="viewerContainer"></div>
-					<!-- 目录树 -->
-					<div id="treeContainer" class="bimsurfer-static-tree">
-						<div class="treeIcon iconfont icon-tree" title="目录树" @click='toggleTree' v-show="!treeBoxShow">
-						</div>
-						<div id="legTreeBox" class="touchmove" v-show="treeBoxShow">
-							<div class="treeTop">
-								<span>目录树</span>
-								<span class="iconfont icon-close" @click="treeBoxShow = false"></span>
-							</div>
-							<div class="legTree"></div>
-
-							<div class="toolBox">
-								<button id="showSelected">显示选中</button>
-								<button id="hideSelected">隐藏选中</button>
-							</div>
-						</div>
+	<body>
+		<div id="app">
+			<template>
+				<div id="mainContainer">
+					<div id="topSection">
+						<h1>BIM-GIS平台</h1>
 					</div>
-					<!-- 构件详情框体 -->
-					<div id="detailBox" class="bimsurfer-metadata touchmove" v-show="detailBoxShow">
-						<div class="detailTop">
-							<span>构件详情</span>
-							<span class="iconfont icon-close" @click="detailBoxShow=false"></span>
-						</div>
-						<div id="dataContainer"></div>
-					</div>
-					<!-- 工具栏 -->
-					<div class="toolsBox">
-						<div class="toolsItem iconfont icon-home mainPersp" title="主视角" @click="swithchMainView"></div>
-						<div class="toolsItem iconfont icon-erji-lujingguanli" title="路径漫游"
-							@click="roamingBoxShow = !roamingBoxShow"></div>
-						<div class="toolsItem iconfont icon-xiangqing" title="构件详情"
-							@click="detailBoxShow = !detailBoxShow"></div>
-					</div>
-					<!-- 漫游路径框体 -->
-					<div id="roamingPath" class="touchmove" v-show="roamingBoxShow">
-						<div class="top">
-							<span>路径漫游</span>
-							<span class="iconfont icon-close" @click="roamingBoxShow=false"></span>
-						</div>
-						<div class="btnBox">
-							<button class="iconfont icon-plus" @click='addRoamingPath'>添加漫游点</button>
-						</div>
-						<div class="pathList">
-							<div class="item" v-for="(i,index) in pathList" :key="index">
-								{{i.title}}
-								<div class="itemOptions">
-									<span @click='playRoamingItems(index)'>播放</span>
-									<span @click='delRoamingItems(index)'>删除</span>
+					<div id="contentWrapper">
+						<div id="viewerContainer"></div>
+						<!-- 目录树 -->
+						<div id="treeContainer" class="bimsurfer-static-tree">
+							<div
+								class="treeIcon iconfont icon-tree"
+								title="目录树"
+								@click="toggleTree"
+								v-show="!treeBoxShow"
+							></div>
+							<div id="treeBox" v-show="treeBoxShow" class="touchmove">
+								<div class="treeTop">
+									<span>目录树</span>
+									<span class="iconfont icon-close" @click="treeBoxShow = false"></span>
+								</div>
+								<!-- <el-tree
+									class="filter-tree"
+									:data="treeData"
+									:props="treeProps"
+									ref="tree"
+									show-checkbox
+									node-key="guid"
+									v-loading="!treeLoadFlag"
+								>
+								</el-tree> -->
+								<div class="treeContent">
+									<ul id="regionZTree" class="ztree"></ul>
 								</div>
 							</div>
 						</div>
-						<div class="playRoamingPath">
-							<button class="iconfont icon-triangle" :class="{active:pathList.length>1}" @click='playRoaming'>播放漫游</button>
+						<!-- 构件详情框体 -->
+						<div id="detailBox" class="bimsurfer-metadata touchmove" v-show="detailBoxShow">
+							<div class="detailTop">
+								<span>构件详情</span>
+								<span class="iconfont icon-close" @click="detailBoxShow=false"></span>
+							</div>
+							<div id="dataContainer"></div>
+						</div>
+						<!-- 工具栏 -->
+						<div class="toolsBox">
+							<div
+								class="toolsItem iconfont icon-home mainPersp"
+								title="主视角"
+								@click="swithchMainView"
+							></div>
+							<div
+								class="toolsItem iconfont icon-erji-lujingguanli"
+								title="路径漫游"
+								@click="roamingBoxShow = !roamingBoxShow"
+							></div>
+							<div
+								class="toolsItem iconfont icon-xiangqing"
+								title="构件详情"
+								@click="detailBoxShow = !detailBoxShow"
+							></div>
+						</div>
+						<!-- 漫游路径框体 -->
+						<div id="roamingPath" class="touchmove" v-show="roamingBoxShow">
+							<div class="top">
+								<span>路径漫游</span>
+								<span class="iconfont icon-close" @click="roamingBoxShow=false"></span>
+							</div>
+							<div class="btnBox">
+								<button class="iconfont icon-plus" @click="addRoamingPath">添加漫游点</button>
+								<el-input placeholder="漫游时间(s)" v-model="curRoamingTime" clearable></el-input>
+							</div>
+							<div class="pathList">
+								<div class="item" v-for="(i,index) in pathList" :key="index">
+									{{i.title}}
+									<div class="itemOptions">
+										<span @click="playRoamingItems(index)">播放</span>
+										<span @click="delRoamingItems(index)">删除</span>
+									</div>
+								</div>
+							</div>
+							<div class="playRoamingPath">
+								<button
+									class="iconfont icon-triangle"
+									:class="{active:pathList.length>1}"
+									@click="playRoaming"
+								>
+									播放漫游
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</template>
-	</div>
+			</template>
+		</div>
 
-	<!-- <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script> -->
-	<!-- <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script> -->
-	<script type="text/javascript" src="./static/js/lib/jquery-2.0.0.min.js"></script>
-	<!-- jquery方法 -->
-	<script type="text/javascript" src="./static/main/initJqMethods.js"></script>
-	<script type="text/javascript" src="./static/js/lib/vue.js"></script>
-	<script type="text/javascript" src="./static/js/lib/axios.min.js"></script>
-	<script type="text/javascript" src="./static/js/lib/elementUI.js"></script>
-	<script type="text/javascript" src="./static/js/cusAxios.js"></script>
-	<!-- vue的方法 -->
-	<script src="./static/main/vuePart.js" type="text/javascript" charset="utf-8"></script>
-	<!-- 下载JSON到本地方法 -->
-	<script type="text/javascript" src="./static/js/load2Local.js"></script>
-	<script type="text/javascript" src="./static/js/lib/require.js"></script>
-	<script type="text/javascript" src="./static/js/lib/spop.js"></script>
+		<!-- <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script> -->
+		<script type="text/javascript" src="./static/js/lib/jquery-2.0.0.min.js"></script>
+		<!-- jquery方法 -->
+		<script type="text/javascript" src="./static/main/initJqMethods.js"></script>
+		<script type="text/javascript" src="./static/js/lib/vue.js"></script>
+		<script type="text/javascript" src="./static/js/lib/axios.min.js"></script>
+		<script type="text/javascript" src="./static/js/lib/elementUI.js"></script>
+		<!-- 组件 -->
+		<script type="text/javascript" src="./static/js/lib/require.js"></script>
+		<script type="text/javascript" src="./static/js/cusAxios.js"></script>
+		<!-- vue的方法 -->
+		<script type="text/javascript" src="./static/main/vuePart.js"></script>
+		<!-- 下载JSON到本地方法 -->
+		<script type="text/javascript" src="./static/js/load2Local.js"></script>
+		<script type="text/javascript" src="./static/js/lib/spop.js"></script>
 
-	<script type="text/javascript" src="./dependency/bimserver/bimserverclient.js"></script>
-	<script type="text/javascript" src="./dependency/bimserver/model.js"></script>
-	<script type="text/javascript" src="./dependency/bimserver/bimserverapiwebsocket.js"></script>
-	<script type="text/javascript" src="./dependency/bimserver/bimserverapipromise.js"></script>
-	<script type="text/javascript" src="./dependency/bimserver/geometry.js"></script>
-	<script type="text/javascript" src="./dependency/bimserver/ifc2x3tc1.js"></script>
-	<script type="text/javascript" src="./dependency/bimserver/ifc4.js"></script>
-	<script type="text/javascript" src="./dependency/bimserver/translations_en.js"></script>
+		<script type="text/javascript" src="./dependency/bimserver/bimserverclient.js"></script>
+		<script type="text/javascript" src="./dependency/bimserver/model.js"></script>
+		<script type="text/javascript" src="./dependency/bimserver/bimserverapiwebsocket.js"></script>
+		<script type="text/javascript" src="./dependency/bimserver/bimserverapipromise.js"></script>
+		<script type="text/javascript" src="./dependency/bimserver/geometry.js"></script>
+		<script type="text/javascript" src="./dependency/bimserver/ifc2x3tc1.js"></script>
+		<script type="text/javascript" src="./dependency/bimserver/ifc4.js"></script>
+		<script type="text/javascript" src="./dependency/bimserver/translations_en.js"></script>
 
-	<script type="text/javascript" src="./static/js/config.js"></script>
-	<script type="text/javascript" src="./static/js/login.js"></script>
-	<script type="text/javascript" src="./static/js/loadModel.js"></script>
+		<script type="text/javascript" src="./static/js/config.js"></script>
+		<script type="text/javascript" src="./static/js/login.js"></script>
+		<script type="text/javascript" src="./static/js/loadModel.js"></script>
 
-	<script type="text/javascript" src="./static/main/main.js"></script>
-	<!-- 树形插件 -->
-	<script src="./static/leg-tree/leg-tree.js" type="text/javascript" charset="utf-8"></script>
-	<script src="./static/leg-tree/cuslegTree.js" type="text/javascript" charset="utf-8"></script>
-</body>
-
+		<script type="text/javascript" src="./static/main/main.js"></script>
+		<!-- 树形插件 -->
+		<script src="./static/js/components/jquery.ztree.all.js" type="text/javascript"></script>
+	</body>
 </html>
