@@ -51,30 +51,30 @@ require([
 	async function processBimSurferModel(bimSurferModel) {
 		treeData.data = await bimSurferModel.getTree()
 		console.log(bimSurferModel)
-		delete treeData.id
-		for (var i of treeData.data.children) {
-			if (i.children) {
-				delete i.id
-				for (var j of i.children) {
-					if (j.children) {
-						delete j.id
-						for (var k of j.children) {
-							if (k.children) {
-								delete k.id
-								for (var l of k.children) {
-									if (l.children) {
-										delete l.id
-										l.open = false
-									} else {
-										k.open = false
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+		// delete treeData.id
+		// for (var i of treeData.data.children) {
+		// 	if (i.children) {
+		// 		delete i.id
+		// 		for (var j of i.children) {
+		// 			if (j.children) {
+		// 				delete j.id
+		// 				for (var k of j.children) {
+		// 					if (k.children) {
+		// 						delete k.id
+		// 						for (var l of k.children) {
+		// 							if (l.children) {
+		// 								delete l.id
+		// 								l.open = false
+		// 							} else {
+		// 								k.open = false
+		// 							}
+		// 						}
+		// 					}
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// }
 		treeData.flag = true
 		console.log(await bimSurferModel.getTree()) // **************************************************************************
 		// bimSurferModel.getTree().then(function (tree) {
@@ -168,7 +168,7 @@ require([
 			style: "success",
 			autoclose: 1500
 		})
-		tools.primaryCamera = bimSurfer.saveReset({ camera: true })
+		tools.primaryCamera = bimSurfer.saveReset({ camera: true }).camera
 		// 获取相机状态并保存
 		queryCameraStatus()
 	})
