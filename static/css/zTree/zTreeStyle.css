@@ -51,7 +51,8 @@ website:	http://code.google.com/p/jquerytree/
 	text-decoration: underline;
 }
 .ztree li a.curSelectedNode {
-	background-color: rgba(6, 6, 6, 0.6);
+	background-color: rgba(255, 255, 255);
+	color: #000 !important;
 }
 .ztree li a.curSelectedNode_Edit {
 	padding-top: 0px;
@@ -219,10 +220,18 @@ website:	http://code.google.com/p/jquerytree/
 	background-size:120% 120%;
 }
 .ztree li span.button.noline_open {
-	background-position: -92px -72px;
+	/* background-position: -92px -72px; */
+	background-image: url("./img/triangle-arrow-d.png");
+	background-repeat: no-repeat;
+	background-position: 30% center;
+	background-size:120% 120%;
 }
 .ztree li span.button.noline_close {
-	background-position: -74px -72px;
+	/* background-position: -74px -72px;	 */
+	background-image: url("./img/triangle-arrow-r.png");
+	background-repeat: no-repeat;
+	background-position: 30% center;
+	background-size:120% 120%;
 }
 .ztree li span.button.root_docu {
 	background: none;

@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="./static/iconfont/iconfont.css" />
 		<link rel="stylesheet" href="./static/css/elementUI/elementUI.css" />
 		<link rel="stylesheet" href="./static/css/zTree/zTreeStyle.css" />
+		<link rel="stylesheet" href="./static/css/nprogress.css" />
 	</head>
 
 	<body>
@@ -34,17 +35,21 @@
 									<span>目录树</span>
 									<span class="iconfont icon-close" @click="treeBoxShow = false"></span>
 								</div>
-								<!-- <el-tree
-									class="filter-tree"
-									:data="treeData"
-									:props="treeProps"
-									ref="tree"
-									show-checkbox
-									node-key="guid"
-									v-loading="!treeLoadFlag"
-								>
-								</el-tree> -->
-								
+								<div class="searchArea">
+									<el-input
+										clearable
+										placeholder="搜索目录树"
+										v-model="searchTreeText"
+										@focus="searchFocusFlag=true"
+										@blur="searchFocusFlag=false"
+										@input="onTreeSearchInput"
+									></el-input>
+									<div class="resList" :class="{active:searchFocusFlag}" v-loading='searchLoading'>
+										<div class="listItem">
+											<span></span>
+										</div>
+									</div>
+								</div>
 								<!-- zTree渲染目录树 -->
 								<div class="treeContent">
 									<ul id="regionZTree" class="ztree"></ul>
@@ -117,10 +122,8 @@
 		<script type="text/javascript" src="./static/main/initJqMethods.js"></script>
 		<!-- <script type="text/javascript" src="./static/main/utils.js"></script> -->
 		<script type="text/javascript" src="./static/js/lib/vue.js"></script>
-		<script type="text/javascript" src="./static/js/lib/axios.min.js"></script>
 		<script type="text/javascript" src="./static/js/lib/elementUI.js"></script>
 		<!-- 组件 -->
-		<script type="text/javascript" src="./static/js/cusAxios.js"></script>
 		<!-- vue的方法 -->
 		<script type="text/javascript" src="./static/js/lib/require.js"></script>
 		<script type="text/javascript" src="./static/main/vuePart.js"></script>

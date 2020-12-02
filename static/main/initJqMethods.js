@@ -8,6 +8,18 @@ var zTreeSetting = {
 	callback: {
 		onCheck: zTreeOnCheck,
 		onClick: zTreeOnClick
+	},
+	// 是否可编辑节点
+	edit: {
+		enable: false,
+		drag: {
+			isCopy: false,
+			isMove: true
+		}
+	},
+	// 是否显示节点之间的连线
+	view:{
+		showLine: false
 	}
 }
 // 初始化目录树
@@ -18,6 +30,8 @@ function initZTree() {
 }
 // 节点选中事件
 function zTreeOnCheck(event, treeId, treeNode) {
+	console.log(treeNode)
+	getNodesByParam()
 	var selIdsArr = []
 	let selNodes = treeObj.getCheckedNodes()
 	// 将叶子节点的id存在一个数组中
@@ -34,6 +48,14 @@ function zTreeOnCheck(event, treeId, treeNode) {
 			visible: true
 		})
 	} catch (e) {}
+}
+// 根据节点数据的属性搜索，获取条件完全匹配的节点数据 JSON 对象集合
+function getNodesByParam(){
+	// 模糊匹配查询
+	let nodes = treeObj.getNodesByParamFuzzy("name","basic",null)
+	console.log(nodes)
+	// 选择节点并移到可视区域
+	treeObj.selectNode(nodes[0],false,false)
 }
 // 点击树事件
 function zTreeOnClick(event, treeId, treeNode) {
@@ -205,28 +227,28 @@ function initJqMethods() {
 			})
 			// 元素超过边缘范围时的处理方法
 			if (cx < contleft) {
-				console.log("左边超过范围")
+				// console.log("左边超过范围")
 				$(this).off("mousemove")
 				_this.parents(".touchmove").css({
 					left: contleft
 				})
 			}
 			if (cR > contRight) {
-				console.log("右边超过范围")
+				// console.log("右边超过范围")
 				$(this).off("mousemove")
 				_this.parents(".touchmove").css({
 					left: contRight - cW - 20
 				})
 			}
 			if (cy < contTop) {
-				console.log("上边超过范围")
+				// console.log("上边超过范围")
 				$(this).off("mousemove")
 				_this.parents(".touchmove").css({
 					top: contTop
 				})
 			}
 			if (cB > contBottom) {
-				console.log("下边超过范围")
+				// console.log("下边超过范围")
 				$(this).off("mousemove")
 				_this.parents(".touchmove").css({
 					top: contBottom - cH - 200

@@ -78,6 +78,42 @@ body {
 #mainContainer #contentWrapper #treeContainer #treeBox .treeTop .icon-close {
   cursor: pointer;
 }
+#mainContainer #contentWrapper #treeContainer #treeBox .searchArea {
+  height: 35px;
+  line-height: 35px;
+  position: relative;
+}
+#mainContainer #contentWrapper #treeContainer #treeBox .searchArea input {
+  width: 100%;
+  height: 35px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+#mainContainer #contentWrapper #treeContainer #treeBox .searchArea .resList {
+  width: 100%;
+  height: 0px;
+  background-color: rgba(255, 255, 255, 0.9);
+  position: absolute;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all 0.3s ease-in-out;
+  top: 35px;
+  z-index: 1000060;
+}
+#mainContainer #contentWrapper #treeContainer #treeBox .searchArea .resList.active {
+  height: 150px;
+}
+#mainContainer #contentWrapper #treeContainer #treeBox .searchArea .resList .listItem {
+  cursor: pointer;
+  padding: 0 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#mainContainer #contentWrapper #treeContainer #treeBox .searchArea .resList .listItem:hover {
+  background-color: rgba(6, 6, 6, 0.8);
+  color: #fff;
+}
 #mainContainer #contentWrapper #treeContainer #treeBox .treeContent {
   flex: 1;
   padding: 5px;

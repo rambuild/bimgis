@@ -1,13 +1,15 @@
+var VUEAPP
 requirejs.config({
-    baseUrl: 'static/main',
-    paths: {
-        utils: './utils'
-    }
-});
-require(["utils"], function (utils) {
-	var app
+	baseUrl: "static",
+	paths: {
+		utils: "./main/utils",
+		axios: "./js/cusAxios"
+	}
+})
+require(["utils", "axios"], function (utils, axios) {
+	Vue.prototype.$msg = utils.cusEleUI
 	function initApp() {
-		app = new Vue({
+		VUEAPP = new Vue({
 			el: "#app",
 			data() {
 				return {
@@ -18,10 +20,10 @@ require(["utils"], function (utils) {
 					treeBoxShow: false,
 					treeLoadFlag: false,
 					treeData: [],
-					treeProps: {
-						label: "name",
-						children: "children"
-					}
+					searchTreeText: "",
+					searchFocusFlag: false,
+					searchLoading: true,
+					timeLine: -1
 				}
 			},
 			mounted() {
@@ -43,23 +45,28 @@ require(["utils"], function (utils) {
 				},
 				// 切换目录树
 				toggleTree() {
-					// 只加载一次目录树
 					this.treeBoxShow = true
+					// 只加载一次目录树
 					if (!this.treeLoadFlag) {
-						// if (treeData.flag) {
-						// 	this.treeData.push(treeData.data)
-						// 	this.treeLoadFlag = true
-						// } else {
-						// 	let pushTree = setInterval(() => {
-						// 		if (treeData.flag) {
-						// 			this.treeData.push(treeData.data)
-						// 			this.treeLoadFlag = true
-						// 			clearInterval(pushTree)
-						// 		}
-						// 	}, 1000)
-						// }
+						// 初始化加载zTree
 						initZTree()
 						this.treeLoadFlag = true
+						axios({
+							method: "POST",
+							url: "api/ModelBusiness/AddModelDirectoryTreeData",
+							// url:"praise",
+							data: [treeData.data]
+						})
+					}
+				},
+				// 搜索目录树
+				onTreeSearchInput(val) {
+					if (val) {
+						// 控制抖动
+						clearTimeout(this.timeLine)
+						this.timeLine = setTimeout(() => {
+							console.log(val)
+						}, 300)
 					}
 				},
 				// 添加漫游路径
@@ -77,6 +84,7 @@ require(["utils"], function (utils) {
 							}
 						}
 					})
+					console.log(this.pathList)
 				},
 				// 播放漫游
 				playRoaming() {

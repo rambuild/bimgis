@@ -50,7 +50,7 @@ body {
 				cursor: pointer;
 			}
 			// 目录树
-			#treeBox{
+			#treeBox {
 				display: flex;
 				width: 100%;
 				height: 100%;
@@ -74,6 +74,42 @@ body {
 					}
 					.icon-close {
 						cursor: pointer;
+					}
+				}
+				.searchArea {
+					height: 35px;
+					line-height: 35px;
+					position: relative;
+					input {
+						width: 100%;
+						height: 35px;
+						border: none;
+						background-color: rgba(255,255,255,0.9);
+					}
+					.resList{
+						width: 100%;
+						height: 0px;
+						background-color: rgba(255,255,255,0.9);
+						position: absolute;
+						overflow-y: auto;
+						overflow-x: hidden;
+						transition: all 0.3s ease-in-out;
+						top:35px;
+						z-index: 1000060;
+						&.active{
+							height: 150px;
+						}
+						.listItem{
+							cursor: pointer;
+							padding: 0 10px;
+							overflow: hidden;
+							white-space: nowrap;
+							text-overflow: ellipsis;
+							&:hover{
+								background-color: rgba(6, 6, 6, 0.8);
+								color: #fff;
+							}
+						}
 					}
 				}
 				.treeContent {
@@ -183,7 +219,7 @@ body {
 				background-color: rgba(0, 0, 0, 0.7);
 				border-bottom: 1px solid #aaa;
 				line-height: 50px;
-				padding:0 10px;
+				padding: 0 10px;
 				button {
 					height: 35px;
 					outline: none;
@@ -195,9 +231,9 @@ body {
 					cursor: pointer;
 					font-size: 14px;
 				}
-				.el-input{
+				.el-input {
 					width: 50%;
-					input{
+					input {
 						background: none;
 						height: 35px;
 						color: #eee;
@@ -209,27 +245,27 @@ body {
 				background-color: rgba(0, 0, 0, 0.7);
 				padding: 5px 0;
 				overflow-y: auto;
-				.item{
+				.item {
 					padding: 0 10px;
 					height: 30px;
 					line-height: 30px;
 					color: #fff;
 					position: relative;
-					.itemOptions{
+					.itemOptions {
 						position: absolute;
-						top:0;
+						top: 0;
 						bottom: 0;
 						right: 5px;
 						margin: auto 0;
 						color: #179b84;
 						cursor: pointer;
 					}
-					&:hover{
+					&:hover {
 						background-color: rgba(102, 102, 102, 0.6);
 					}
 				}
 			}
-			.playRoamingPath{
+			.playRoamingPath {
 				height: 45px;
 				line-height: 45px;
 				padding-left: 10px;
@@ -245,11 +281,11 @@ body {
 					cursor: pointer;
 					font-size: 12px;
 					padding: 5px 20px;
-					&::before{
+					&::before {
 						margin-right: 5px;
 					}
 				}
-				.active{					
+				.active {
 					border: solid 1px #179b84;
 					color: #fff;
 					background-color: #179b84;

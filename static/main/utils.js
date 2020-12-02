@@ -9,7 +9,16 @@ define(function () {
 			}, actionArr[index - 1].conf.camera.duration * 1000)
 		}
 	}
+	function cusEleUI(type, message, duration) {
+		Vue.prototype.$message({
+			type,
+			message,
+			duration: duration || 1500,
+			center: true
+		})
+	}
 	return {
-		execAction
+		execAction,
+		cusEleUI
 	}
 })
