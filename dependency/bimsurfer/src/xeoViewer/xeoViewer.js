@@ -1,3 +1,24 @@
+let allTypes = [
+	"IfcSlab",
+	"IfcWall",
+	"IfcWallStandardCase",
+	"IfcFurnishingElement",
+	"IfcBeam",
+	"IfcBuildingElementProxy",
+	"IfcColumn",
+	"IfcDoor",
+	"IfcFlowTerminal",
+	"IfcOpeningElement",
+	"IfcRailing",
+	"IfcRamp",
+	"IfcSpace",
+	"IfcStair",
+	"IfcTransportElement",
+	"IfcWindow",
+	"IfcCovering",
+	"IfcStairFlight",
+	"IfcMember"
+]
 define([
 	"../DefaultMaterials",
 	"../EventHandler",
@@ -1295,30 +1316,9 @@ define([
 
 			if (setVisible) {
 				// ************** 自定义添加，先删除所有的构件 *************
-				let allAttrs = [
-                    "IfcSlab",
-                    "IfcWall",
-                    "IfcWallStandardCase",
-                    "IfcFurnishingElement",
-                    "IfcBeam",
-                    "IfcBuildingElementProxy",
-                    "IfcColumn",
-                    "IfcDoor",
-                    "IfcFlowTerminal",
-                    "IfcOpeningElement",
-                    "IfcRailing",
-                    "IfcRamp",
-                    "IfcSpace",
-                    "IfcStair",
-                    "IfcTransportElement",
-                    "IfcWindow",
-                    "IfcCovering",
-                    "IfcStairFlight",
-                    "IfcMember"
-                ]
 				// 恢复配置前将所有构件隐藏
 				this.setVisibility({
-					types: allAttrs,
+					types: allTypes,
 					visible: false
 				})
 				// *******************************************************
@@ -1339,33 +1339,12 @@ define([
 			if (setCamera) {
 				this.setCamera(bookmark.camera)
 			}
-        }
-        // 自定义：隐藏所有构件
+		}
+		// 自定义：隐藏所有构件
 		this.hideAll = function () {
-			let allAttrs = [
-				"IfcSlab",
-				"IfcWall",
-				"IfcWallStandardCase",
-				"IfcFurnishingElement",
-				"IfcBeam",
-				"IfcBuildingElementProxy",
-				"IfcColumn",
-				"IfcDoor",
-				"IfcFlowTerminal",
-				"IfcOpeningElement",
-				"IfcRailing",
-				"IfcRamp",
-				"IfcSpace",
-				"IfcStair",
-				"IfcTransportElement",
-                "IfcWindow",
-                "IfcCovering",
-                "IfcStairFlight",
-                "IfcMember"
-			]
 			// 恢复配置前将所有构件隐藏
 			this.setVisibility({
-				types: allAttrs,
+				types: allTypes,
 				visible: false
 			})
 		}

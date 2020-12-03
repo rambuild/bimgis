@@ -35,18 +35,30 @@
 									<span>目录树</span>
 									<span class="iconfont icon-close" @click="treeBoxShow = false"></span>
 								</div>
+								<!-- 目录树搜索区域 -->
 								<div class="searchArea">
-									<el-input
-										clearable
-										placeholder="搜索目录树"
-										v-model="searchTreeText"
-										@focus="searchFocusFlag=true"
-										@blur="searchFocusFlag=false"
-										@input="onTreeSearchInput"
-									></el-input>
-									<div class="resList" :class="{active:searchFocusFlag}" v-loading='searchLoading'>
-										<div class="listItem">
-											<span></span>
+									<div class="inputBox">
+										<el-input
+											clearable
+											placeholder="搜索目录树"
+											v-model="searchTreeText"
+											@focus="searchFocusFlag=true"
+											@blur="searchFocusFlag=false"
+											@input="onTreeSearchInput"
+										></el-input>
+										<div class="searchLength" v-show="searchNodesList.length>0">
+											<span>共{{searchNodesList.length}}条结果</span>
+										</div>
+									</div>
+									<div class="resList" :class="{active:searchFocusFlag}">
+										<div
+											class="listItem"
+											v-for="i in searchNodesList"
+											:key="i.id"
+											@click="selNodesItem(i)"
+											:title="i.name"
+										>
+											<span>{{i.name}}</span>
 										</div>
 									</div>
 								</div>
@@ -55,14 +67,6 @@
 									<ul id="regionZTree" class="ztree"></ul>
 								</div>
 							</div>
-						</div>
-						<!-- 构件详情框体 -->
-						<div id="detailBox" class="bimsurfer-metadata touchmove" v-show="detailBoxShow">
-							<div class="detailTop">
-								<span>构件详情</span>
-								<span class="iconfont icon-close" @click="detailBoxShow=false"></span>
-							</div>
-							<div id="dataContainer"></div>
 						</div>
 						<!-- 工具栏 -->
 						<div class="toolsBox">
@@ -80,6 +84,11 @@
 								class="toolsItem iconfont icon-xiangqing"
 								title="构件详情"
 								@click="detailBoxShow = !detailBoxShow"
+							></div>
+							<div
+								class="toolsItem iconfont icon-goujianshaixuanqi"
+								title="构件筛选器"
+								@click="typeBoxShow = !typeBoxShow"
 							></div>
 						</div>
 						<!-- 漫游路径框体 -->
@@ -111,6 +120,34 @@
 								</button>
 							</div>
 						</div>
+						<!-- 构件详情框体 -->
+						<div id="detailBox" class="touchmove" v-show="detailBoxShow">
+							<div class="detailTop">
+								<span>构件详情</span>
+								<span class="iconfont icon-close" @click="detailBoxShow=false"></span>
+							</div>
+							<div id="dataContainer"></div>
+						</div>
+						<!-- 构件筛选器框体 -->
+						<div id="typeBox" class="touchmove" v-show="typeBoxShow">
+							<div class="typeTop">
+								<span>构件筛选器</span>
+								<span class="iconfont icon-close" @click="typeBoxShow=false"></span>
+							</div>
+							<div id="dataContainer">
+								<el-tree
+									:data="typeTreeData"
+									show-checkbox
+									node-key="desc"
+									:default-checked-keys="['所有类型构件']"
+									:default-expand-all="true"
+									:check-on-click-node="true"
+									@check="typeTreeOnCheck"
+									:highlight-current="true"
+								>
+								</el-tree>
+							</div>
+						</div>
 					</div>
 				</div>
 			</template>
@@ -118,17 +155,12 @@
 
 		<!-- <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script> -->
 		<script type="text/javascript" src="./static/js/lib/jquery-2.0.0.min.js"></script>
-		<!-- jquery方法 -->
-		<script type="text/javascript" src="./static/main/initJqMethods.js"></script>
-		<!-- <script type="text/javascript" src="./static/main/utils.js"></script> -->
 		<script type="text/javascript" src="./static/js/lib/vue.js"></script>
 		<script type="text/javascript" src="./static/js/lib/elementUI.js"></script>
 		<!-- 组件 -->
 		<!-- vue的方法 -->
 		<script type="text/javascript" src="./static/js/lib/require.js"></script>
 		<script type="text/javascript" src="./static/main/vuePart.js"></script>
-		<!-- 下载JSON到本地方法 -->
-		<script type="text/javascript" src="./static/js/load2Local.js"></script>
 		<script type="text/javascript" src="./static/js/lib/spop.js"></script>
 
 		<script type="text/javascript" src="./dependency/bimserver/bimserverclient.js"></script>

@@ -46,8 +46,9 @@ require([
 	"../../dependency/bimsurfer/src/BimServerModelLoader",
 	"../../dependency/bimsurfer/src/StaticTreeRenderer",
 	"../../dependency/bimsurfer/src/MetaDataRenderer",
+	"../../static/main/handleZTree",
 	"../../dependency/bimsurfer/lib/domReady!"
-], function (BimSurfer, BimServerModelLoader, StaticTreeRenderer, MetaDataRenderer) {
+], function (BimSurfer, BimServerModelLoader, StaticTreeRenderer, MetaDataRenderer, zTree) {
 	async function processBimSurferModel(bimSurferModel) {
 		treeData.data = await bimSurferModel.getTree()
 		console.log(bimSurferModel)
@@ -126,7 +127,14 @@ require([
 		})
 		bimSurfer.on("selection-changed", function (selected) {
 			// domtree.setSelected(selected, domtree.SELECT_EXCLUSIVE)
+			// 加载构件详细信息
 			metadata.setSelected(selected)
+			if (selected.length > 0) {
+				let curId = selected[0].split(":")[1]
+				// 先在ztree里根据ID查找节点，再选中
+				let curNodes = zTree.getNodeByID(curId)
+				zTree.selTreeNode(curNodes[0])
+			}
 		})
 		// tree点击事件
 		$(".legTree").on("click", "a", function () {
@@ -148,7 +156,7 @@ require([
 			}
 		})
 	}
-
+	// 模型的渲染节点
 	var bimSurfer = new BimSurfer({
 		domNode: "viewerContainer"
 	})
@@ -157,10 +165,10 @@ require([
 
 	// 加载及加载完成事件
 	bimSurfer.on("loading-started", function () {
-		console.time("加载用时")
+		console.time("加载模型用时")
 	})
 	bimSurfer.on("loading-finished", function () {
-		console.timeEnd("加载用时")
+		console.timeEnd("加载模型用时")
 		// 加载成功提示信息
 		spop({
 			template: "加载成功",
@@ -169,6 +177,8 @@ require([
 			autoclose: 1500
 		})
 		tools.primaryCamera = bimSurfer.saveReset({ camera: true }).camera
+		// 初始化zTree目录树
+		zTree.initZTree()
 		// 获取相机状态并保存
 		queryCameraStatus()
 	})

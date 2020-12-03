@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "15751255",
+      "name": "构件筛选器",
+      "font_class": "goujianshaixuanqi",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
       "icon_id": "2510169",
       "name": "triangle-arrow-r",
       "font_class": "triangle-arrow-r",

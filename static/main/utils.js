@@ -16,9 +16,21 @@ define(function () {
 			duration: duration || 1500,
 			center: true
 		})
+	}	
+	// 下载JSON到本地方法
+	function load2Local(fileName,data) {
+		const blob = new Blob([data], { type: "text/plain" })
+		//const blob = new Blob([data], {type: 'audio/wav'})
+		const a = document.createElement("a")
+		a.href = URL.createObjectURL(blob)
+		a.download = fileName // 保存的文件名
+		a.click()
+		URL.revokeObjectURL(a.href)
+		a.remove()
 	}
 	return {
 		execAction,
-		cusEleUI
+		cusEleUI,
+		load2Local
 	}
 })
