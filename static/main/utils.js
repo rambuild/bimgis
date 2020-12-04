@@ -9,7 +9,7 @@ define(function () {
 			}, actionArr[index - 1].conf.camera.duration * 1000)
 		}
 	}
-	function cusEleUI(type, message, duration) {
+	function cusMessage(type, message, duration) {
 		Vue.prototype.$message({
 			type,
 			message,
@@ -30,7 +30,7 @@ define(function () {
 	}
 	return {
 		execAction,
-		cusEleUI,
+		cusMessage,
 		load2Local
 	}
 })

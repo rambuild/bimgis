@@ -24,6 +24,10 @@
   border-radius: 0;
   background: #353637;
 }
+.el-tooltip__popper,
+.el-color-dropdown {
+  z-index: 100050 !important;
+}
 body {
   margin: 0;
   padding: 0;
@@ -39,25 +43,27 @@ body {
 }
 #mainContainer #contentWrapper {
   position: relative;
+  height: 100%;
 }
 #mainContainer #contentWrapper #viewerContainer {
   width: 100%;
+  height: 100%;
   overflow: hidden;
   line-height: 150%;
-  background-color: #d6e0eb;
+  background-image: linear-gradient(#87A7F0, #8baded, #a3c1f3, #bad9f8, #d6ecfd);
 }
 #mainContainer #contentWrapper #viewerContainer canvas {
   display: block;
   width: 100%;
-  height: 700px;
+  height: 100%;
   cursor: default;
 }
 #mainContainer #contentWrapper #treeContainer {
   position: absolute;
-  left: 5px;
-  top: 10px;
+  left: 0;
+  top: 0;
   width: 300px;
-  height: 420px;
+  height: 70%;
   z-index: 100001;
 }
 #mainContainer #contentWrapper #treeContainer .treeIcon {
@@ -79,14 +85,12 @@ body {
   width: 100%;
   height: 100%;
   position: absolute;
-  border-radius: 6px;
   overflow: hidden;
   flex-direction: column;
   user-select: none;
 }
 #mainContainer #contentWrapper #treeContainer #treeBox .treeTop {
-  background-color: #050505;
-  border-bottom: solid 1px #666;
+  background-color: #19334C;
   color: #fff;
   width: 100%;
   height: 45px;
@@ -94,14 +98,10 @@ body {
   display: flex;
   padding: 0 10px;
   justify-content: space-between;
-  cursor: move;
 }
 #mainContainer #contentWrapper #treeContainer #treeBox .treeTop span {
   font-weight: bold;
   font-size: 18px;
-}
-#mainContainer #contentWrapper #treeContainer #treeBox .treeTop .icon-close {
-  cursor: pointer;
 }
 #mainContainer #contentWrapper #treeContainer #treeBox .searchArea {
   height: 35px;
@@ -110,6 +110,7 @@ body {
 }
 #mainContainer #contentWrapper #treeContainer #treeBox .searchArea .inputBox {
   display: flex;
+  align-items: center;
   height: 35px;
   justify-content: space-between;
 }
@@ -122,7 +123,7 @@ body {
   border: none;
   outline: none;
   border-radius: 0;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #f5f5f5;
 }
 #mainContainer #contentWrapper #treeContainer #treeBox .searchArea .inputBox .searchLength {
   width: 35%;
@@ -133,12 +134,12 @@ body {
   overflow-x: auto;
   overflow-y: hidden;
   font-size: 12px;
-  background-color: #fff;
+  background-color: #F3F7FE;
 }
 #mainContainer #contentWrapper #treeContainer #treeBox .searchArea .resList {
   width: 100%;
   height: 0px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #f5f5f5;
   position: absolute;
   overflow-y: auto;
   overflow-x: hidden;
@@ -147,7 +148,7 @@ body {
   z-index: 1000060;
 }
 #mainContainer #contentWrapper #treeContainer #treeBox .searchArea .resList.active {
-  height: 150px;
+  height: 300px;
 }
 #mainContainer #contentWrapper #treeContainer #treeBox .searchArea .resList .listItem {
   cursor: pointer;
@@ -163,7 +164,8 @@ body {
 #mainContainer #contentWrapper #treeContainer #treeBox .treeContent {
   flex: 1;
   padding: 5px;
-  background-color: rgba(6, 6, 6, 0.8);
+  border-top: solid 1px #666;
+  background-color: #19334C;
   color: #fff;
   overflow-x: auto;
   overflow-y: auto;
@@ -304,19 +306,18 @@ body {
 }
 #mainContainer #contentWrapper #detailBox {
   position: absolute;
-  right: 8px;
-  top: 10px;
+  right: 0;
+  top: 0;
   width: 300px;
-  height: 420px;
+  height: 70%;
   z-index: 100001;
   display: flex;
-  border-radius: 6px;
   overflow: hidden;
   flex-direction: column;
   user-select: none;
 }
 #mainContainer #contentWrapper #detailBox .detailTop {
-  background-color: #050505;
+  background-color: #19334C;
   border-bottom: solid 1px #666;
   cursor: move;
   color: #fff;
@@ -337,7 +338,7 @@ body {
 #mainContainer #contentWrapper #detailBox #dataContainer {
   flex: 1;
   padding: 0 10px 10px;
-  background-color: rgba(6, 6, 6, 0.8);
+  background-color: #19334C;
   color: #fff;
   overflow-y: auto;
 }
@@ -393,4 +394,24 @@ body {
 }
 #mainContainer #contentWrapper #typeBox #dataContainer .el-tree-node:focus > .el-tree-node__content {
   background: none;
+}
+#mainContainer #contentWrapper .settingBox {
+  width: 300px;
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  position: absolute;
+  top: 70px;
+  right: 50%;
+  transform: translateX(50%);
+  z-index: 100030;
+}
+#mainContainer #contentWrapper .settingBox .settingItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#mainContainer #contentWrapper .settingBox .settingItem .el-slider,
+#mainContainer #contentWrapper .settingBox .settingItem .el-color-picker {
+  width: 80%;
+  text-align: center;
 }

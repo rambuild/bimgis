@@ -17,23 +17,14 @@
 		<div id="app">
 			<template>
 				<div id="mainContainer">
-					<div id="topSection">
-						<h1>BIM-GIS平台</h1>
-					</div>
 					<div id="contentWrapper">
 						<div id="viewerContainer"></div>
 						<!-- 目录树 -->
 						<div id="treeContainer" class="bimsurfer-static-tree">
-							<div
-								class="treeIcon iconfont icon-tree"
-								title="目录树"
-								@click="toggleTree"
-								v-show="!treeBoxShow"
-							></div>
-							<div id="treeBox" v-show="treeBoxShow" class="touchmove">
+							<!-- 目录树 -->
+							<div id="treeBox" class="touchmove">
 								<div class="treeTop">
 									<span>目录树</span>
-									<span class="iconfont icon-close" @click="treeBoxShow = false"></span>
 								</div>
 								<!-- 目录树搜索区域 -->
 								<div class="searchArea">
@@ -71,7 +62,7 @@
 						<!-- 工具栏 -->
 						<div class="toolsBox">
 							<div
-								class="toolsItem iconfont icon-home mainPersp"
+								class="toolsItem iconfont icon-home2 mainPersp"
 								title="主视角"
 								@click="swithchMainView"
 							></div>
@@ -90,6 +81,7 @@
 								title="构件筛选器"
 								@click="typeBoxShow = !typeBoxShow"
 							></div>
+							<div class="toolsItem iconfont icon-setting" title="设置" @click=""></div>
 						</div>
 						<!-- 漫游路径框体 -->
 						<div id="roamingPath" class="touchmove" v-show="roamingBoxShow">
@@ -121,10 +113,9 @@
 							</div>
 						</div>
 						<!-- 构件详情框体 -->
-						<div id="detailBox" class="touchmove" v-show="detailBoxShow">
+						<div id="detailBox" class="touchmove">
 							<div class="detailTop">
 								<span>构件详情</span>
-								<span class="iconfont icon-close" @click="detailBoxShow=false"></span>
 							</div>
 							<div id="dataContainer"></div>
 						</div>
@@ -146,6 +137,22 @@
 									:highlight-current="true"
 								>
 								</el-tree>
+							</div>
+						</div>
+						<!-- 构件属性设置框体 -->
+						<div class="settingBox">
+							<div class="settingItem">
+								<span>透明度</span>
+								<el-slider v-model="propSettings.visible" @input="visibleSliderInput"></el-slider>
+							</div>
+							<div class="settingItem">
+								<span class="demonstration">颜色</span>
+								<el-color-picker
+									v-model="propSettings.color"
+									@change="colorPickerChange"
+									color-format="RGB"
+									show-alpha
+								></el-color-picker>
 							</div>
 						</div>
 					</div>

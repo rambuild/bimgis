@@ -24,6 +24,9 @@
 	border-radius: 0;
 	background: #353637;
 }
+.el-tooltip__popper,.el-color-dropdown{
+	z-index: 100050 !important;
+}
 body {
 	margin: 0;
 	padding: 0;
@@ -38,25 +41,27 @@ body {
 	}
 	#contentWrapper {
 		position: relative;
+		height: 100%;
 		#viewerContainer {
 			width: 100%;
+			height: 100%;
 			overflow: hidden;
 			line-height: 150%;
-			background-color: #d6e0eb;
+			background-image: linear-gradient(#87A7F0, #8baded, #a3c1f3, #bad9f8, #d6ecfd);
 			canvas {
 				display: block;
 				width: 100%;
-				height: 700px;
+				height: 100%;
 				cursor: default;
 			}
 		}
 		// 目录树
 		#treeContainer {
 			position: absolute;
-			left: 5px;
-			top: 10px;
+			left: 0;
+			top: 0;
 			width: 300px;
-			height: 420px;
+			height: 70%;
 			z-index: 100001;
 			.treeIcon {
 				position: absolute;
@@ -78,13 +83,11 @@ body {
 				width: 100%;
 				height: 100%;
 				position: absolute;
-				border-radius: 6px;
 				overflow: hidden;
 				flex-direction: column;
 				user-select: none;
 				.treeTop {
-					background-color: #050505;
-					border-bottom: solid 1px #666;
+					background-color: #19334C;
 					color: #fff;
 					width: 100%;
 					height: 45px;
@@ -92,13 +95,9 @@ body {
 					display: flex;
 					padding: 0 10px;
 					justify-content: space-between;
-					cursor: move;
 					span {
 						font-weight: bold;
 						font-size: 18px;
-					}
-					.icon-close {
-						cursor: pointer;
 					}
 				}
 				.searchArea {
@@ -107,6 +106,7 @@ body {
 					position: relative;
 					.inputBox {
 						display: flex;
+						align-items: center;
 						height: 35px;
 						justify-content: space-between;
 						.el-input {
@@ -117,7 +117,7 @@ body {
 								border: none;
 								outline: none;
 								border-radius: 0;
-								background-color: rgba(255, 255, 255, 0.9);
+								background-color:rgb(245, 245,245);
 							}
 						}
 						.searchLength {
@@ -129,13 +129,13 @@ body {
 							overflow-x: auto;
 							overflow-y: hidden;
 							font-size: 12px;
-							background-color: #fff;
+							background-color: #F3F7FE;
 						}
 					}
 					.resList {
 						width: 100%;
 						height: 0px;
-						background-color: rgba(255, 255, 255, 0.9);
+						background-color:rgb(245, 245,245);
 						position: absolute;
 						overflow-y: auto;
 						overflow-x: hidden;
@@ -143,7 +143,7 @@ body {
 						top: 35px;
 						z-index: 1000060;
 						&.active {
-							height: 150px;
+							height: 300px;
 						}
 						.listItem {
 							cursor: pointer;
@@ -161,7 +161,8 @@ body {
 				.treeContent {
 					flex: 1;
 					padding: 5px;
-					background-color: rgba(6, 6, 6, 0.8);
+					border-top: solid 1px #666;
+					background-color: #19334C;
 					color: #fff;
 					overflow-x: auto;
 					overflow-y: auto;
@@ -307,18 +308,17 @@ body {
 		// 构件详情
 		#detailBox {
 			position: absolute;
-			right: 8px;
-			top: 10px;
+			right: 0;
+			top: 0;
 			width: 300px;
-			height: 420px;
+			height: 70%;
 			z-index: 100001;
 			display: flex;
-			border-radius: 6px;
 			overflow: hidden;
 			flex-direction: column;
 			user-select: none;
 			.detailTop {
-				background-color: #050505;
+				background-color: #19334C;
 				border-bottom: solid 1px #666;
 				cursor: move;
 				color: #fff;
@@ -339,7 +339,7 @@ body {
 			#dataContainer {
 				flex: 1;
 				padding: 0 10px 10px;
-				background-color: rgba(6, 6, 6, 0.8);
+				background-color: #19334C;
 				color: #fff;
 				overflow-y: auto;
 			}
@@ -395,6 +395,26 @@ body {
 				}
 				.el-tree-node:focus > .el-tree-node__content {
 					background: none;
+				}
+			}
+		}
+		// 构件属性设置框体
+		.settingBox{
+			width: 300px;
+			padding: 10px 20px;
+			background-color: rgb(245, 245,245);
+			position: absolute;
+			top:70px;
+			right: 50%;
+			transform: translateX(50%);
+			z-index: 100030;
+			.settingItem{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				.el-slider,.el-color-picker{
+					width: 80%;
+					text-align: center;
 				}
 			}
 		}

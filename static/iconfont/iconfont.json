@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "809669",
+      "name": "home",
+      "font_class": "home1",
+      "unicode": "e672",
+      "unicode_decimal": 58994
+    },
+    {
+      "icon_id": "7605126",
+      "name": "home",
+      "font_class": "home2",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "2142867",
+      "name": "setting",
+      "font_class": "setting",
+      "unicode": "e6b8",
+      "unicode_decimal": 59064
+    },
+    {
+      "icon_id": "663143",
+      "name": "home",
+      "font_class": "i-home",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
       "icon_id": "15751255",
       "name": "构件筛选器",
       "font_class": "goujianshaixuanqi",

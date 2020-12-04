@@ -230,7 +230,7 @@ require([
 
 			function getModelOidAndName(thisModel) {
 				var modelObj = thisModel.apiModel.objects
-				console.log("modelObj-------------", modelObj)
+				console.log("modelObj-------------", Object.keys(modelObj).length)
 				// load2Local("demo.txt", JSON.stringify(modelObj))
 
 				Object.keys(modelObj).forEach(function (key) {

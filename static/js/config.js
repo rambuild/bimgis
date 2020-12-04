@@ -1,4 +1,4 @@
-var projectName = 'b'; // address地址下的BIMserver服务中必须有test1项目，而且还要有模型
+var projectName = "b"; // address地址下的BIMserver服务中必须有test1项目，而且还要有模型
 var account = "276822603@qq.com";
 var address = "http://localhost:6666"; // 这三个是在安装BIMserver时配置的地址、账户和密码
 var password = "qwer1236";

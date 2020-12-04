@@ -26,9 +26,9 @@ define([], function () {
 	// 初始化目录树
 	function initZTree() {
 		if (treeData.flag) {
-			console.time('加载目录树用时')
+			console.time("加载目录树用时")
 			treeObj = $.fn.zTree.init($("#regionZTree"), zTreeSetting, [treeData.data])
-			console.timeEnd('加载目录树用时')
+			console.timeEnd("加载目录树用时")
 			allNodes = treeObj.getNodes()
 			// 勾选所有节点
 			treeObj.checkAllNodes(true)
@@ -53,7 +53,6 @@ define([], function () {
 		try {
 			// 先隐藏所有构件
 			bimSurfer.hideAll()
-			console.log(selNodes)
 			bimSurfer.setVisibility({
 				ids: selIdsArr,
 				visible: true
@@ -92,10 +91,22 @@ define([], function () {
 			} catch (e) {}
 		}
 	}
+	// 获取当前选择节点并返回bimsurfer节点
+	function getBimSelectedNodes() {
+		let selIdsArr =[]
+		let selNodes = treeObj.getCheckedNodes()
+		selNodes.filter(i => {
+			if (!i.children) {
+				selIdsArr.push(`${lastRevisionId}:${i.id}`)
+			}
+		})
+		return selIdsArr
+	}
 	return {
 		initZTree,
 		getNodesByParamFuzzy,
 		selTreeNode,
-		getNodeByID
+		getNodeByID,
+		getBimSelectedNodes
 	}
 })

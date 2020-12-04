@@ -9,7 +9,7 @@ requirejs.config({
 	}
 })
 require(["utils", "axios", "zTree", "initJqMethods"], function (utils, axios, zTree, initJqMethods) {
-	Vue.prototype.$msg = utils.cusEleUI
+	Vue.prototype.$msg = utils.cusMessage
 	function initVUEAPP() {
 		VUEAPP = new Vue({
 			el: "#app",
@@ -110,7 +110,11 @@ require(["utils", "axios", "zTree", "initJqMethods"], function (utils, axios, zT
 							]
 						}
 					],
-					timeLine: -1
+					timeLine: -1,
+					propSettings: {
+						visible: 100,
+						color: "#409EFF"
+					}
 				}
 			},
 			mounted() {
@@ -120,6 +124,7 @@ require(["utils", "axios", "zTree", "initJqMethods"], function (utils, axios, zT
 			methods: {
 				// 切换主视角
 				swithchMainView() {
+					// this.submitTreeData()
 					bimSurfer.resetByConf(
 						{ camera: tools.primaryCamera },
 						{
@@ -136,14 +141,16 @@ require(["utils", "axios", "zTree", "initJqMethods"], function (utils, axios, zT
 					// 只加载一次目录树
 					if (!this.treeLoadFlag) {
 						this.treeLoadFlag = true
-						// axios({
-						// 	method: "POST",
-						// 	url: "ModelBusiness/AddModelDirectoryTreeData?isForceImport=true",
-						// 	// url:"praise",
-						// 	data: [treeData.data]
-						// })
 						// utils.load2Local('testea',JSON.stringify(treeData.data))
 					}
+				},
+				submitTreeData() {
+					axios({
+						method: "POST",
+						url: "ModelBusiness/AddModelDirectoryTreeData?isForceImport=true",
+						// url:"praise",
+						data: [treeData.data]
+					})
 				},
 				// 搜索目录树
 				onTreeSearchInput(val) {
@@ -155,7 +162,7 @@ require(["utils", "axios", "zTree", "initJqMethods"], function (utils, axios, zT
 						this.searchNodesList = searchNodesList
 						// axios({
 						// 	method: "POST",
-						// 	url: `HomeBusiness/SearchBuildingList?modelKey=08d89769-3f30-78fa-b8d1-f799c49ddb4e&keyWord=${val}`,						
+						// 	url: `HomeBusiness/SearchBuildingList?modelKey=08d89769-3f30-78fa-b8d1-f799c49ddb4e&keyWord=${val}`,
 						// })
 					}, 300)
 				},
@@ -226,6 +233,27 @@ require(["utils", "axios", "zTree", "initJqMethods"], function (utils, axios, zT
 				// 删除单项漫游路径
 				delRoamingItems(index) {
 					this.pathList.splice(index, 1)
+				},
+				// 设置构件可见性
+				visibleSliderInput(val) {
+					let selItems = zTree.getBimSelectedNodes()
+					bimSurfer.setOpacity({
+						ids: selItems,
+						opacity: val / 100 // RGBA
+					})
+				},
+				// 设置构件颜色
+				colorPickerChange(val) {
+					let selItems = zTree.getBimSelectedNodes()
+					val = val.replace("(", "").replace(")", "").replace("rgba", "").split(",")
+					val = val.map(i => {
+						return parseInt(i)
+					})
+					console.log(val)
+					bimSurfer.setColor({
+						ids: selItems,
+						color: val // RGBA
+					})
 				}
 			}
 		})

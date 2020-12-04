@@ -22,9 +22,12 @@ define([], function () {
 		var typeBox_x = "60%"
 		var typeBox_y = 10
 
-		var ids = [_detailBox, _treeBox, _roamingPath, _typeBox]
-		var ids_x = [detailBox_x, treeBox_x, roamingPath_x, typeBox_x]
-		var ids_y = [detailBox_y, treeBox_y, roamingPath_y, typeBox_y]
+		// var ids = [_detailBox, _treeBox, _roamingPath, _typeBox]
+		// var ids_x = [detailBox_x, treeBox_x, roamingPath_x, typeBox_x]
+		// var ids_y = [detailBox_y, treeBox_y, roamingPath_y, typeBox_y]
+		var ids = [_roamingPath,_typeBox]
+		var ids_x = [roamingPath_x,typeBox_x]
+		var ids_y = [roamingPath_y,typeBox_y]
 
 		$.each(ids, function (i, _this) {
 			// _this.parents(".touchmove").css({
@@ -66,7 +69,6 @@ define([], function () {
 				// 当前鼠标的位置（移动后，鼠标弹起）
 
 				// 计算当前元素的边缘范围
-				var offset = _this.offset()
 				var cx = offset.left
 				var cy = offset.top
 				var cW = _this[0].offsetWidth
@@ -78,39 +80,40 @@ define([], function () {
 				sy = ev.pageY
 				// 当前元素位置
 				var _x = sx - px
-				var _y = sy - py - 72
+				var _y = sy - py
 				// 设定元素位置
 				_this.parents(".touchmove").css({
 					left: _x,
 					top: _y
 				})
 				// 元素超过边缘范围时的处理方法
-				if (cx < contleft) {
+				if (_x < contleft) {
 					// console.log("左边超过范围")
 					$(this).off("mousemove")
 					_this.parents(".touchmove").css({
 						left: contleft
 					})
 				}
-				if (cR > contRight) {
+				if (_x > contRight - cW) {
 					// console.log("右边超过范围")
 					$(this).off("mousemove")
 					_this.parents(".touchmove").css({
 						left: contRight - cW - 20
 					})
 				}
-				if (cy < contTop) {
+				if (_y < contTop) {
+					console.log(cy)
 					// console.log("上边超过范围")
 					$(this).off("mousemove")
 					_this.parents(".touchmove").css({
 						top: contTop
 					})
 				}
-				if (cB > contBottom) {
+				if (_y > contBottom - cH) {
 					// console.log("下边超过范围")
 					$(this).off("mousemove")
 					_this.parents(".touchmove").css({
-						top: contBottom - cH - 200
+						top: contBottom - cH - 225
 					})
 				}
 				$.each(ids, function (i, _this) {
