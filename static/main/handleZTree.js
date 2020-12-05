@@ -29,6 +29,8 @@ define([], function () {
 			console.time("加载目录树用时")
 			treeObj = $.fn.zTree.init($("#regionZTree"), zTreeSetting, [treeData.data])
 			console.timeEnd("加载目录树用时")
+			// 加载树完成后改变vue实例中的值
+			VUEAPP.treeLoadComplete = true
 			allNodes = treeObj.getNodes()
 			// 勾选所有节点
 			treeObj.checkAllNodes(true)
@@ -57,7 +59,7 @@ define([], function () {
 				ids: selIdsArr,
 				visible: true
 			})
-		} catch (e) {}
+		} catch (e) { }
 	}
 	// 根据节点数据的属性搜索，获取条件完全匹配的节点数据 JSON 对象集合
 	function getNodesByParamFuzzy(val) {
@@ -88,12 +90,12 @@ define([], function () {
 					clear: true,
 					selected: true
 				})
-			} catch (e) {}
+			} catch (e) { }
 		}
 	}
 	// 获取当前选择节点并返回bimsurfer节点
 	function getBimSelectedNodes() {
-		let selIdsArr =[]
+		let selIdsArr = []
 		let selNodes = treeObj.getCheckedNodes()
 		selNodes.filter(i => {
 			if (!i.children) {

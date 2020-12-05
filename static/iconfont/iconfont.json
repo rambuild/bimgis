@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "5327922",
+      "name": "模型中心",
+      "font_class": "moxingzhongxin",
+      "unicode": "e669",
+      "unicode_decimal": 58985
+    },
+    {
+      "icon_id": "12103015",
+      "name": "模型",
+      "font_class": "moxing",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
       "icon_id": "809669",
       "name": "home",
       "font_class": "home1",

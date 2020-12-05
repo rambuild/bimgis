@@ -24,8 +24,17 @@
 	border-radius: 0;
 	background: #353637;
 }
-.el-tooltip__popper,.el-color-dropdown{
+.el-tooltip__popper,
+.el-color-dropdown {
 	z-index: 100050 !important;
+}
+.el-loading-mask {
+	background-color: rgba(255, 255, 255, 0.3) !important;
+}
+.el-dropdown-menu{
+	z-index: 100050 !important;
+	max-height: 350px;
+	overflow: auto;
 }
 body {
 	margin: 0;
@@ -47,7 +56,7 @@ body {
 			height: 100%;
 			overflow: hidden;
 			line-height: 150%;
-			background-image: linear-gradient(#87A7F0, #8baded, #a3c1f3, #bad9f8, #d6ecfd);
+			background-image: linear-gradient(#87a7f0, #8baded, #a3c1f3, #bad9f8, #d6ecfd);
 			canvas {
 				display: block;
 				width: 100%;
@@ -87,7 +96,7 @@ body {
 				flex-direction: column;
 				user-select: none;
 				.treeTop {
-					background-color: #19334C;
+					background-color: #19334c;
 					color: #fff;
 					width: 100%;
 					height: 45px;
@@ -117,7 +126,7 @@ body {
 								border: none;
 								outline: none;
 								border-radius: 0;
-								background-color:rgb(245, 245,245);
+								background-color: #F5F5F5;
 							}
 						}
 						.searchLength {
@@ -129,13 +138,13 @@ body {
 							overflow-x: auto;
 							overflow-y: hidden;
 							font-size: 12px;
-							background-color: #F3F7FE;
+							background-color: #F5F5F5;
 						}
 					}
 					.resList {
 						width: 100%;
 						height: 0px;
-						background-color:rgb(245, 245,245);
+						background-color: rgb(245, 245, 245);
 						position: absolute;
 						overflow-y: auto;
 						overflow-x: hidden;
@@ -162,7 +171,7 @@ body {
 					flex: 1;
 					padding: 5px;
 					border-top: solid 1px #666;
-					background-color: #19334C;
+					background-color: #19334c;
 					color: #fff;
 					overflow-x: auto;
 					overflow-y: auto;
@@ -173,6 +182,7 @@ body {
 				}
 			}
 		}
+		// 工具栏
 		.toolsBox {
 			position: absolute;
 			z-index: 100001;
@@ -191,6 +201,19 @@ body {
 				font-size: 30px;
 				color: #ababab;
 				cursor: pointer;
+				position: relative;
+				// 项目列表选择
+				.el-dropdown{
+					width: 100%;
+					height: 100%;
+					position: absolute;
+					top: 0;
+					left: 0;
+					.dropDownBox{
+						width: 100%;
+						height: 100%;
+					}
+				}
 			}
 		}
 		// 路径漫游
@@ -198,7 +221,7 @@ body {
 			width: 300px;
 			height: 420px;
 			position: absolute;
-			z-index: 100001;
+			z-index: 100050;
 			right: 100px;
 			border-radius: 6px;
 			overflow: hidden;
@@ -318,9 +341,8 @@ body {
 			flex-direction: column;
 			user-select: none;
 			.detailTop {
-				background-color: #19334C;
+				background-color: #19334c;
 				border-bottom: solid 1px #666;
-				cursor: move;
 				color: #fff;
 				width: 100%;
 				height: 45px;
@@ -339,7 +361,7 @@ body {
 			#dataContainer {
 				flex: 1;
 				padding: 0 10px 10px;
-				background-color: #19334C;
+				background-color: #19334c;
 				color: #fff;
 				overflow-y: auto;
 			}
@@ -399,20 +421,23 @@ body {
 			}
 		}
 		// 构件属性设置框体
-		.settingBox{
+		.settingBox {
 			width: 300px;
 			padding: 10px 20px;
-			background-color: rgb(245, 245,245);
+			background-color: rgb(245, 245, 245);
 			position: absolute;
-			top:70px;
+			top: 70px;
 			right: 50%;
 			transform: translateX(50%);
 			z-index: 100030;
-			.settingItem{
+			user-select: none;
+			border-radius: 6px;
+			.settingItem {
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-				.el-slider,.el-color-picker{
+				.el-slider,
+				.el-color-picker {
 					width: 80%;
 					text-align: center;
 				}
