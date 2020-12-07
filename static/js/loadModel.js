@@ -2,6 +2,12 @@ var treeData = {
 	data: [],
 	flag: false
 }
+var BIMSERVER_URL = "http://localhost:6666"
+var BIMSERVER_URL = "http://101.133.234.110:9998"
+var BIMSERVER_UNAME = "276822603@qq.com"
+// var BIMSERVER_PWD = "qwer1236"
+var BIMSERVER_PWD = "123456"
+
 var tools = {}
 define([
 	"../../dependency/bimsurfer/src/BimSurfer",
@@ -16,46 +22,8 @@ define([
 			treeData.data = await bimSurferModel.getTree()
 			console.log(bimSurferModel)
 			treeData.flag = true
-			console.log(await bimSurferModel.getTree()) // **************************************************************************
-			// bimSurferModel.getTree().then(function (tree) {
-			//     // 传递创建左侧构件树的div_ID
-			//     var domtree = new StaticTreeRenderer({
-			//         domNode: "treeContainer",
-			//     })
-			//     domtree.addModel({ name: "ceshi", id: lastRevisionId, tree: tree })
-			//     domtree.build()
-			//     // 传递创建右侧构件头信息的div_ID
-			//     metadata = new MetaDataRenderer({
-			//         domNode: "dataContainer",
-			//     })
+			console.log(await bimSurferModel.getTree())
 
-			//     metadata.addModel({
-			//         name: "",
-			//         id: lastRevisionId,
-			//         model: bimSurferModel,
-			//     })
-
-			//     // view层选择事件
-			//     bimSurfer.on("selection-changed", function (selected) {
-			//         domtree.setSelected(selected, domtree.SELECT_EXCLUSIVE)
-			//         metadata.setSelected(selected)
-			//     })
-
-			//     // 左侧构件树的点击事件
-			//     domtree.on("click", function (oid, selected) {
-			//         if (selected.length) {
-			//             bimSurfer.viewFit({
-			//                 ids: selected,
-			//                 animate: true, // 设置是否有动画效果
-			//             })
-			//         }
-			//         bimSurfer.setSelection({
-			//             ids: selected,
-			//             clear: true,
-			//             selected: true,
-			//         })
-			//     })
-			// })
 			metadata = new MetaDataRenderer({
 				domNode: "dataContainer"
 			})
@@ -75,25 +43,6 @@ define([
 					zTree.selTreeNode(curNodes[0])
 				}
 			})
-			// tree点击事件
-			$(".legTree").on("click", "a", function () {
-				let curItem = $(this).siblings("input").val()
-				// 判断是否为有数值的构件
-				if (curItem > 0) {
-					curItem = [`${lastRevisionId}:${curItem}`]
-					console.log(curItem)
-					bimSurfer.viewFit({
-						ids: curItem,
-						animate: true // 设置是否有动画效果
-					})
-					bimSurfer.setSelection({
-						ids: curItem,
-						clear: true,
-						selected: true
-					})
-					// metadata.setSelected(curItem)
-				}
-			})
 		}
 		// 模型的渲染节点
 		var bimSurfer = new BimSurfer({
@@ -109,18 +58,14 @@ define([
 		bimSurfer.on("loading-finished", function () {
 			console.timeEnd("加载模型用时")
 			// 加载成功提示信息
-			spop({
-				template: "加载成功",
-				group: "submit-satus",
-				style: "success",
-				autoclose: 1500
-			})
+			Vue.prototype.$msg("success", "加载成功",1000)
+			// 保存初始相机位置
 			tools.primaryCamera = bimSurfer.saveReset({ camera: true }).camera
 			// 初始化zTree目录树
 			zTree.initZTree()
 		})
 
-		var bimServerClient = new BimServerClient(address, null)
+		var bimServerClient = new BimServerClient(BIMSERVER_URL, null)
 		// 客户端初始化
 		bimServerClient.init(function () {
 			bimServerClient.setToken(token, function () {

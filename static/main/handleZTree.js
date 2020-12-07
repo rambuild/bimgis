@@ -34,12 +34,11 @@ define([], function () {
 			allNodes = treeObj.getNodes()
 			// 勾选所有节点
 			treeObj.checkAllNodes(true)
-			console.log(allNodes)
-			// 默认展开根节点
+			// 默认展开前两级节点
 			for (let i = 0; i < allNodes.length; i++) {
-				treeObj.expandNode(allNodes[i], true, false, true);
+				treeObj.expandNode(allNodes[i], true, false, true)
 				for (let j = 0; j < allNodes[i].children.length; j++) {
-					treeObj.expandNode(allNodes[i].children[j], true, false, true);
+					treeObj.expandNode(allNodes[i].children[j], true, false, true)
 				}
 			}
 		} else {
@@ -67,7 +66,7 @@ define([], function () {
 				ids: selIdsArr,
 				visible: true
 			})
-		} catch (e) { }
+		} catch (e) {}
 	}
 	// 根据节点数据的属性搜索，获取条件完全匹配的节点数据 JSON 对象集合
 	function getNodesByParamFuzzy(val) {
@@ -98,19 +97,21 @@ define([], function () {
 					clear: true,
 					selected: true
 				})
-			} catch (e) { }
+			} catch (e) {}
 		}
 	}
 	// 获取当前选择节点并返回bimsurfer节点
 	function getBimSelectedNodes() {
-		let selIdsArr = []
-		let selNodes = treeObj.getCheckedNodes()
-		selNodes.filter(i => {
-			if (!i.children) {
-				selIdsArr.push(`${lastRevisionId}:${i.id}`)
-			}
-		})
-		return selIdsArr
+		try {
+			let selIdsArr = []
+			let selNodes = treeObj.getCheckedNodes()
+			selNodes.filter(i => {
+				if (!i.children) {
+					selIdsArr.push(`${lastRevisionId}:${i.id}`)
+				}
+			})
+			return selIdsArr
+		} catch (e) {}
 	}
 	return {
 		initZTree,

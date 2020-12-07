@@ -36,6 +36,9 @@
   max-height: 350px;
   overflow: auto;
 }
+.el-message {
+  z-index: 100060 !important;
+}
 body {
   margin: 0;
   padding: 0;

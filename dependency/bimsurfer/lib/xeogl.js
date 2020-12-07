@@ -15617,7 +15617,7 @@ var Canvas2Image = (function () {
             var height = params.height || this.canvas.height;
             var format = params.format || "jpeg";
             var image;
-
+            console.log(this.canvas)
             switch (format) {
                 case "jpeg":
                     image = Canvas2Image.saveAsJPEG(this.canvas, true, width, height);

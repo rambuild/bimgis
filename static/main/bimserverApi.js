@@ -1,28 +1,28 @@
 requirejs.config({
-    baseUrl: "static",
-    paths: {
-        axios: "./js/cusAxios",
-    }
+	baseUrl: "static",
+	paths: {
+		axios: "./js/cusAxios"
+	}
 })
-var BASEPATH = "http://localhost:6666/json"
+var BASEPATH = BIMSERVER_URL + "/json"
 
 var bodyParams = {
-    request: {
-        interface: "org.bimserver.ServiceInterface",
-        method: "getAllProjects",
-        parameters: {
-            onlyActive: true,
-            onlyTopLevel: false
-        },
-    }
+	request: {
+		interface: "org.bimserver.ServiceInterface",
+		method: "getAllProjects",
+		parameters: {
+			onlyActive: true,
+			onlyTopLevel: false
+		}
+	}
 }
 
 define(["axios"], function (axios) {
-    function bimserverApi() {
-        this.getProjectList = async function (token) {
-            let { data: res } = await axios.post(BASEPATH, { ...bodyParams, token })
-            return res
-        }
-    }
-    return new bimserverApi()
+	function bimserverApi() {
+		this.getProjectList = async function (token) {
+			let { data: res } = await axios.post(BASEPATH, { ...bodyParams, token })
+			return res
+		}
+	}
+	return new bimserverApi()
 })
