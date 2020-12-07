@@ -147,47 +147,47 @@ define([
 		// The current projection type
 		var projectionType = "persp"
 
-		//-----------------------------------------------------------------------------------------------------------
-		// Camera notifications
-		//-----------------------------------------------------------------------------------------------------------
+			//-----------------------------------------------------------------------------------------------------------
+			// Camera notifications
+			//-----------------------------------------------------------------------------------------------------------
 
-		;(function () {
-			// Fold xeoEngine's separate events for view and projection updates
-			// into a single "camera-changed" event, deferred to fire on next scene tick.
+			; (function () {
+				// Fold xeoEngine's separate events for view and projection updates
+				// into a single "camera-changed" event, deferred to fire on next scene tick.
 
-			var cameraUpdated = false
+				var cameraUpdated = false
 
-			camera.on("projectMatrix", function () {
-				cameraUpdated = true
-			})
+				camera.on("projectMatrix", function () {
+					cameraUpdated = true
+				})
 
-			camera.on("viewMatrix", function () {
-				cameraUpdated = true
-			})
+				camera.on("viewMatrix", function () {
+					cameraUpdated = true
+				})
 
-			scene.on("tick", function () {
-				/**
-				 * Fired on the iteration of each "game loop" for this xeoViewer.
-				 * @event tick
-				 * @param {String} sceneID The ID of this Scene.
-				 * @param {Number} startTime The time in seconds since 1970 that this xeoViewer was instantiated.
-				 * @param {Number} time The time in seconds since 1970 of this "tick" event.
-				 * @param {Number} prevTime The time of the previous "tick" event from this xeoViewer.
-				 * @param {Number} deltaTime The time in seconds since the previous "tick" event from this xeoViewer.
-				 */
-				self.fire("tick")
-
-				if (cameraUpdated) {
+				scene.on("tick", function () {
 					/**
-					 * Fired whenever this xeoViewer's camera changes.
-					 * @event camera-changed
-					 * @params New camera state, same as that got with #getCamera.
+					 * Fired on the iteration of each "game loop" for this xeoViewer.
+					 * @event tick
+					 * @param {String} sceneID The ID of this Scene.
+					 * @param {Number} startTime The time in seconds since 1970 that this xeoViewer was instantiated.
+					 * @param {Number} time The time in seconds since 1970 of this "tick" event.
+					 * @param {Number} prevTime The time of the previous "tick" event from this xeoViewer.
+					 * @param {Number} deltaTime The time in seconds since the previous "tick" event from this xeoViewer.
 					 */
-					self.fire("camera-changed", [self.getCamera()])
-					cameraUpdated = false
-				}
-			})
-		})()
+					self.fire("tick")
+
+					if (cameraUpdated) {
+						/**
+						 * Fired whenever this xeoViewer's camera changes.
+						 * @event camera-changed
+						 * @params New camera state, same as that got with #getCamera.
+						 */
+						self.fire("camera-changed", [self.getCamera()])
+						cameraUpdated = false
+					}
+				})
+			})()
 
 		//-----------------------------------------------------------------------------------------------------------
 		// Camera control
@@ -199,7 +199,6 @@ define([
 
 		cameraControl.on("pick", function (hit) {
 			// Get BIM object ID from entity metadata
-
 			var entity = hit.entity
 
 			if (!entity.meta) {
@@ -305,7 +304,6 @@ define([
 			var scale
 			var matrix
 			var types = Object.keys(DefaultMaterials)
-
 			var numEntities = params.numEntities || 200
 			var size = params.size || 200
 			var halfSize = size / 2
@@ -462,7 +460,7 @@ define([
 			// Register object against ID
 			objects[object.id] = object
 			if (guid) {
-				;(objects_by_guid[guid] || (objects_by_guid[guid] = [])).push(object)
+				; (objects_by_guid[guid] || (objects_by_guid[guid] = [])).push(object)
 			}
 
 			// Register object against IFC type
@@ -760,7 +758,6 @@ define([
 
 			var ids = params.ids
 			var types = params.types
-
 			if (!ids && !types) {
 				console.error("Param expected: ids or types")
 				return
@@ -790,7 +787,7 @@ define([
 			for (var i = 0, len = ids.length; i < len; i++) {
 				objectId = ids[i]
 				object = objects[objectId] || objects_by_guid[objectId]
-
+				console.log(Object.keys(objects).length)
 				if (!object) {
 					// No return on purpose to continue changing color of
 					// other potentially valid object identifiers.
@@ -804,7 +801,6 @@ define([
 		this._setObjectColor = function (object, color) {
 			var material = object.material
 			material.diffuse = [color[0], color[1], color[2]]
-
 			var opacity = color.length > 3 ? color[3] : 1
 			if (opacity !== material.opacity) {
 				material.opacity = opacity
@@ -1375,34 +1371,34 @@ define([
 		}
 
 		/**
-         Returns a snapshot of this xeoViewer as a Base64-encoded image.
+		 Returns a snapshot of this xeoViewer as a Base64-encoded image.
 
-         #### Usage:
-         ````javascript
-         imageElement.src = xeoViewer.getSnapshot({
-             width: 500, // Defaults to size of canvas
-             height: 500,
-             format: "png" // Options are "jpeg" (default), "png" and "bmp"
-         });
-         ````
+		 #### Usage:
+		 ````javascript
+		 imageElement.src = xeoViewer.getSnapshot({
+			 width: 500, // Defaults to size of canvas
+			 height: 500,
+			 format: "png" // Options are "jpeg" (default), "png" and "bmp"
+		 });
+		 ````
 
-         @method getSnapshot
-         @param {*} [params] Capture options.
-         @param {Number} [params.width] Desired width of result in pixels - defaults to width of canvas.
-         @param {Number} [params.height] Desired height of result in pixels - defaults to height of canvas.
-         @param {String} [params.format="jpeg"] Desired format; "jpeg", "png" or "bmp".
-         @returns {String} String-encoded image data.
-         */
+		 @method getSnapshot
+		 @param {*} [params] Capture options.
+		 @param {Number} [params.width] Desired width of result in pixels - defaults to width of canvas.
+		 @param {Number} [params.height] Desired height of result in pixels - defaults to height of canvas.
+		 @param {String} [params.format="jpeg"] Desired format; "jpeg", "png" or "bmp".
+		 @returns {String} String-encoded image data.
+		 */
 		this.getSnapshot = function (params) {
 			return scene.canvas.getSnapshot(params)
 		}
 
 		/**
-         Returns a list of loaded IFC entity types in the model.
+		 Returns a list of loaded IFC entity types in the model.
 
-         @method getTypes
-         @returns {Array} List of loaded IFC entity types, with visibility flag
-         */
+		 @method getTypes
+		 @returns {Array} List of loaded IFC entity types, with visibility flag
+		 */
 		this.getTypes = function () {
 			return Object.keys(rfcTypes).map(function (n) {
 				return { name: n, visible: hiddenTypes.indexOf(n) === -1 }

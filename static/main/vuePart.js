@@ -141,12 +141,12 @@ require(["utils", "axios", "zTree", "initJqMethods", "initModel", "bimserverApi"
 						this.projectList = list.response.result
 						console.log(list)
 					},
-					// 模型列表的点击
-					projectItemClick(i) {
+					// 切换模型
+					projectItemClick(projectName) {
 						// 先移除当前项目的canvas节点
 						$('canvas').remove()
-						console.log(i)
-						login("http://localhost:6666", "276822603@qq.com", "qwer1236", i)
+						console.log(projectName)
+						login("http://localhost:6666", "276822603@qq.com", "qwer1236", projectName)
 							.then((res) => {
 								// 加载模型
 								initModel()

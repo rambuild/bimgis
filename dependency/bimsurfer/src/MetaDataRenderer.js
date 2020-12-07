@@ -112,7 +112,6 @@ define(["./EventHandler", "./Request", "./Utils", "./getInfo"], function (EventH
 
         var models = {};
         var domNode = document.getElementById(args['domNode']);
-
         this.addModel = function (args) {
             return new Promise(function (resolve, reject) {
                 if (args.model) {
@@ -208,7 +207,7 @@ define(["./EventHandler", "./Request", "./Utils", "./getInfo"], function (EventH
 
         this.setSelected = function (oid) {
             if (oid.length !== 1) {
-                domNode.innerHTML = "选中一个部件，查看部件的属性信息。";
+                domNode.innerHTML = "选中一个构件，查看构件的属性信息。";
                 return;
             }
 

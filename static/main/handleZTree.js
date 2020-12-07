@@ -1,6 +1,6 @@
 var treeObj, allNodes
 define([], function () {
-	// 目录树初始化设置
+	// 目录树配置项
 	var zTreeSetting = {
 		check: {
 			enable: true,
@@ -34,6 +34,14 @@ define([], function () {
 			allNodes = treeObj.getNodes()
 			// 勾选所有节点
 			treeObj.checkAllNodes(true)
+			console.log(allNodes)
+			// 默认展开根节点
+			for (let i = 0; i < allNodes.length; i++) {
+				treeObj.expandNode(allNodes[i], true, false, true);
+				for (let j = 0; j < allNodes[i].children.length; j++) {
+					treeObj.expandNode(allNodes[i].children[j], true, false, true);
+				}
+			}
 		} else {
 			// 循环获取treeData直到有值
 			setTimeout(() => {

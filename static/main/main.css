@@ -393,7 +393,7 @@ body {
 #mainContainer #contentWrapper #typeBox .typeTop .icon-close {
   cursor: pointer;
 }
-#mainContainer #contentWrapper #typeBox #dataContainer {
+#mainContainer #contentWrapper #typeBox .treeContainer {
   width: 100%;
   flex: 1;
   padding: 0 10px 10px;
@@ -401,17 +401,17 @@ body {
   color: #fff;
   overflow-y: auto;
 }
-#mainContainer #contentWrapper #typeBox #dataContainer .el-tree {
+#mainContainer #contentWrapper #typeBox .treeContainer .el-tree {
   background: none;
   color: #fff;
 }
-#mainContainer #contentWrapper #typeBox #dataContainer .el-tree-node__content:hover {
+#mainContainer #contentWrapper #typeBox .treeContainer .el-tree-node__content:hover {
   background-color: rgba(20, 20, 20);
 }
-#mainContainer #contentWrapper #typeBox #dataContainer .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+#mainContainer #contentWrapper #typeBox .treeContainer .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
   background: none;
 }
-#mainContainer #contentWrapper #typeBox #dataContainer .el-tree-node:focus > .el-tree-node__content {
+#mainContainer #contentWrapper #typeBox .treeContainer .el-tree-node:focus > .el-tree-node__content {
   background: none;
 }
 #mainContainer #contentWrapper .settingBox {

@@ -109,7 +109,7 @@
 							<span>构件筛选器</span>
 							<span class="iconfont icon-close" @click="typeBoxShow=false"></span>
 						</div>
-						<div id="dataContainer">
+						<div class="treeContainer">
 							<el-tree :data="typeTreeData" show-checkbox node-key="desc"
 								:default-checked-keys="['所有类型构件']" :default-expand-all="true"
 								:check-on-click-node="true" @check="typeTreeOnCheck" :highlight-current="true">
