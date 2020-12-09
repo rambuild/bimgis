@@ -1,7 +1,8 @@
 requirejs.config({
 	baseUrl: "static",
 	paths: {
-		axios: "./js/cusAxios"
+		axios: "./js/cusAxios",
+		utils: "./main/utils"
 	}
 })
 var BASEPATH = BIMSERVER_URL + "/json"
@@ -17,7 +18,7 @@ var bodyParams = {
 	}
 }
 
-define(["axios"], function (axios) {
+define(["axios", "utils"], function (axios, utils) {
 	function bimserverApi() {
 		this.getProjectList = async function (token) {
 			let { data: res } = await axios.post(BASEPATH, { ...bodyParams, token })

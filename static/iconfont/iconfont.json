@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "6801730",
+      "name": "Save-from Cloud",
+      "font_class": "Save-fromCloud",
+      "unicode": "e68d",
+      "unicode_decimal": 59021
+    },
+    {
+      "icon_id": "6801731",
+      "name": "Save-to Cloud",
+      "font_class": "Save-toCloud",
+      "unicode": "e68e",
+      "unicode_decimal": 59022
+    },
+    {
+      "icon_id": "17412052",
+      "name": "Checkbox Checked",
+      "font_class": "CheckboxChecked",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "12348183",
+      "name": "check_box_outline_blank_24px_rounded",
+      "font_class": "check_box_outline_blank_px_rounded",
+      "unicode": "edaf",
+      "unicode_decimal": 60847
+    },
+    {
       "icon_id": "5327922",
       "name": "模型中心",
       "font_class": "moxingzhongxin",

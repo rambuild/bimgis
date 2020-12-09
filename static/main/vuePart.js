@@ -30,7 +30,6 @@ require([
 			el: "#app",
 			data() {
 				return {
-					pathList: [],
 					curRoamingTime: "",
 					roamingBoxShow: false,
 					treeBoxShow: false,
@@ -47,19 +46,25 @@ require([
 						visible: 100,
 						color: "#409EFF"
 					},
-					projectList: []
+					projectList: [],
+					tabActiveName: "newPath",
+					roamingPath: {
+						pathList: []
+					},
+					cachedRoamingPath: []
 				}
 			},
 			mounted() {
 				// 引入Jquery方法
 				initJqMethods()
 				// 登录获取token
-				login(BIMSERVER_URL, BIMSERVER_UNAME, BIMSERVER_PWD, "a").then(() => {
+				login(BIMSERVER_URL, BIMSERVER_UNAME, BIMSERVER_PWD, INIT_PROJRCT_NAME).then(() => {
 					// 加载模型
 					initModel()
 					// 获取项目列表
 					this.getProjectList()
 				})
+				// 插入构建类型
 				this.typeTreeData.push(allTypes)
 			},
 			methods: {
@@ -81,7 +86,7 @@ require([
 				// 切换主视角
 				swithchMainView() {
 					// 提交目录树数据方法
-					// this.submitTreeData()
+					this.submitTreeData()
 					bimSurfer.resetByConf(
 						{ camera: tools.primaryCamera },
 						{
@@ -104,8 +109,7 @@ require([
 				submitTreeData() {
 					axios({
 						method: "POST",
-						url: "ModelBusiness/AddModelDirectoryTreeData",
-						// url:"praise",
+						url: `ModelBusiness/AddModelDirectoryTreeData?lastRevisionId=${lastRevisionId}`,
 						data: [treeData.data]
 					})
 				},
@@ -161,30 +165,11 @@ require([
 				},
 				// 添加漫游路径
 				addRoamingPath() {
-					let canvas = $("canvas")[0]
-					// let a = canvas2image.convertToImage(canvas, 112, 100, "png").src
-					canvas.toBlob(
-						function (blob) {
-							const eleLink = document.getElementById('downlll')
-							eleLink.download = 'aa' + ".png"
-							eleLink.style.display = "none"
-							// 字符内容转变成blob地址
-							eleLink.href = URL.createObjectURL(blob)
-							// 触发点击
-							eleLink.click()
-						},
-						"image/png",
-						1
-					)
-
-					// console.log(canvas.toDataURL())
-					// console.log(a)
-
-					let length = this.pathList.length
+					let length = this.roamingPath.pathList.length
 					let conf = bimSurfer.saveReset({ camera: true })
 					// 如果输入的不是数字则默认为1
 					let duration = isNaN(parseFloat(this.curRoamingTime)) ? 1 : parseFloat(this.curRoamingTime)
-					this.pathList.push({
+					this.roamingPath.pathList.push({
 						title: `漫游点${length + 1}（${duration}s）`,
 						conf: {
 							camera: {
@@ -193,7 +178,7 @@ require([
 							}
 						}
 					})
-					console.log(this.pathList)
+					console.log(this.roamingPath.pathList)
 				},
 				// 播放漫游
 				playRoaming() {
@@ -202,13 +187,50 @@ require([
 						utils.execAction(this.pathList, 0)
 					}
 				},
+				// 保存当前漫游路径组
+				saveRoaming() {
+					if (this.roamingPath.pathList.length > 0) {
+						this.$prompt("请输入漫游路径组名称：", "", {
+							inputPattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/,
+							inputErrorMessage: "名称不能为空且只能是中文，英文字母和数字及下划线"
+						})
+							.then(({ value }) => {
+								console.log(this.roamingPath.keyId)
+								let params = {
+									lastRevisionId: lastRevisionId,
+									pathList: JSON.stringify(this.roamingPath.pathList),
+									name: value
+								}
+								if (this.roamingPath.keyId) {
+									params.keyId = this.roamingPath.keyId
+									axios({
+										method: "POST",
+										url: "ModelRoam/RoamCreateOrUpdate",
+										data: params
+									})
+								} else {
+									axios({
+										method: "POST",
+										url: "ModelRoam/RoamCreateOrUpdate",
+										data: params
+									})
+									console.log(params)
+								}
+							})
+							.catch(() => {})
+					}
+				},
 				// 播放单项漫游路径
 				playRoamingItems(index) {
 					bimSurfer.resetByConf(this.pathList[index].conf, { camera: true })
 				},
-				// 删除单项漫游路径
-				delRoamingItems(index) {
-					this.pathList.splice(index, 1)
+				// 编辑单项漫游路径
+				editRoamingItems(index, type) {
+					if (type == "del") {
+						this.pathList.splice(index, 1)
+					} else {
+						console.log("eidt")
+					}
 				},
 				// 设置构件可见性
 				visibleSliderInput(val) {
@@ -240,6 +262,24 @@ require([
 						ids: selItems,
 						color: val // RGBA [1,0,1,1]
 					})
+				},
+				// 漫游路径tab栏点击事件
+				async handleTabClick(e) {
+					if (e.name == "cachedPath") {
+						let { data: res } = await axios({
+							method: "POST",
+							url: `/ModelRoam/GetModelRoamList?lastRevisionId=${lastRevisionId}`
+						})
+						this.cachedRoamingPath = res
+					}
+				},
+				// 缓存的路径项目设为当前漫游路径
+				cachedPath2Local(i) {
+					this.roamingPath = i
+					if (typeof this.roamingPath.pathList == "string") {
+						this.roamingPath.pathList = JSON.parse(this.roamingPath.pathList)
+					}
+					this.tabActiveName = "newPath"
 				}
 			}
 		})

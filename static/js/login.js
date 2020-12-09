@@ -18,6 +18,8 @@ define([], function () {
 					account,
 					password,
 					function () {
+						// 存储token
+						token = client.token
 						// 根据项目名称获取该项目的模型场景
 						client.call(
 							"ServiceInterface",
@@ -29,7 +31,6 @@ define([], function () {
 							function (projects) {
 								projects.forEach(function (project) {
 									if (project.name === projectName) {
-										token = client.token
 										poid = project.oid
 										lastRevisionId = project.lastRevisionId
 									}

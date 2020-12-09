@@ -23,7 +23,7 @@ website:	http://code.google.com/p/jquerytree/
 	padding: 0;
 	margin: 0;
 	list-style: none;
-	line-height: 14px;
+	line-height: 26px;
 	text-align: left;
 	white-space: nowrap;
 	outline: 0;
@@ -47,10 +47,11 @@ website:	http://code.google.com/p/jquerytree/
 	vertical-align: top;
 	display: inline-block;
 }
-.ztree li a:hover {
-	text-decoration: underline;
+.ztree li a:hover .node_name {
+	background-color: rgba(255, 255, 255);
+	color: #000 !important;
 }
-.ztree li a.curSelectedNode {
+.ztree li a.curSelectedNode .node_name {
 	background-color: rgba(255, 255, 255);
 	color: #000 !important;
 }
@@ -97,21 +98,29 @@ website:	http://code.google.com/p/jquerytree/
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-attachment: scroll;
-	background-image: url("./img/zTreeStandard.png");
-	*background-image: url("./img/zTreeStandard.gif");
+	/* background-image: url("./img/zTreeStandard.png");
+	*background-image: url("./img/zTreeStandard.gif"); */
 }
 
 .ztree li span.button.chk {
 	width: 13px;
 	height: 13px;
-	margin: 0 3px 0 0;
+	margin: 0 5px 0 0;
 	cursor: auto;
+	cursor: pointer;
+}
+.ztree li span.button {
+	background-repeat: no-repeat;
+	background-position: 30% center;
+	background-size: 120% 120%;
 }
 .ztree li span.button.chk.checkbox_false_full {
-	background-position: 0 0;
+	/* background-position: 0 0; */
+	background-image: url("./img/checkbox.png");
 }
 .ztree li span.button.chk.checkbox_false_full_focus {
-	background-position: 0 -14px;
+	/* background-position: 0 -14px; */
+	background-image: url("./img/checkbox.png");
 }
 .ztree li span.button.chk.checkbox_false_part {
 	background-position: 0 -28px;
@@ -123,16 +132,20 @@ website:	http://code.google.com/p/jquerytree/
 	background-position: 0 -56px;
 }
 .ztree li span.button.chk.checkbox_true_full {
-	background-position: -14px 0;
+	/* background-position: -14px 0; */
+	background-image: url("./img/checkbox_sel.png");
 }
 .ztree li span.button.chk.checkbox_true_full_focus {
-	background-position: -14px -14px;
+	/* background-position: -14px -14px; */
+	background-image: url("./img/checkbox_sel.png");
 }
 .ztree li span.button.chk.checkbox_true_part {
-	background-position: -14px -28px;
+	/* background-position: -14px -28px; */
+	background-image: url("./img/checkbox_sel.png");
 }
 .ztree li span.button.chk.checkbox_true_part_focus {
-	background-position: -14px -42px;
+	/* background-position: -14px -42px; */
+	background-image: url("./img/checkbox_sel.png");
 }
 .ztree li span.button.chk.checkbox_true_disable {
 	background-position: -14px -56px;
@@ -175,16 +188,11 @@ website:	http://code.google.com/p/jquerytree/
 .ztree li span.button.root_open {
 	/* background-position: -92px -54px; */
 	background-image: url("./img/triangle-arrow-d.png");
-	background-repeat: no-repeat;
-	background-position: 30% center;
-	background-size:120% 120%;
+	background-size: 120% 120%;
 }
 .ztree li span.button.root_close {
 	/* background-position: -74px -54px; */
 	background-image: url("./img/triangle-arrow-r.png");
-	background-repeat: no-repeat;
-	background-position: 30% center;
-	background-size:120% 120%;
 }
 .ztree li span.button.roots_open {
 	background-position: -92px 0;
@@ -195,43 +203,25 @@ website:	http://code.google.com/p/jquerytree/
 .ztree li span.button.center_open {
 	/* background-position: -92px -18px; */
 	background-image: url("./img/triangle-arrow-d.png");
-	background-repeat: no-repeat;
-	background-position: 30% center;
-	background-size:120% 120%;
 }
 .ztree li span.button.center_close {
 	background-image: url("./img/triangle-arrow-r.png");
-	background-repeat: no-repeat;
-	background-position: 30% center;
-	background-size:120% 120%;
 }
 .ztree li span.button.bottom_open {
 	/* background-position: -92px -36px; */
 	background-image: url("./img/triangle-arrow-d.png");
-	background-repeat: no-repeat;
-	background-position: 30% center;
-	background-size:120% 120%;
 }
 .ztree li span.button.bottom_close {
 	/* background-position: -74px -36px; */
 	background-image: url("./img/triangle-arrow-r.png");
-	background-repeat: no-repeat;
-	background-position: 30% center;
-	background-size:120% 120%;
 }
 .ztree li span.button.noline_open {
 	/* background-position: -92px -72px; */
 	background-image: url("./img/triangle-arrow-d.png");
-	background-repeat: no-repeat;
-	background-position: 30% center;
-	background-size:120% 120%;
 }
 .ztree li span.button.noline_close {
 	/* background-position: -74px -72px;	 */
 	background-image: url("./img/triangle-arrow-r.png");
-	background-repeat: no-repeat;
-	background-position: 30% center;
-	background-size:120% 120%;
 }
 .ztree li span.button.root_docu {
 	background: none;

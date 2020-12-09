@@ -2,13 +2,29 @@ var treeData = {
 	data: [],
 	flag: false
 }
-var BIMSERVER_URL = "http://localhost:6666"
-var BIMSERVER_URL = "http://101.133.234.110:9998"
-var BIMSERVER_UNAME = "276822603@qq.com"
-// var BIMSERVER_PWD = "qwer1236"
-var BIMSERVER_PWD = "123456"
 
+// bimserver地址和账号配置
+let dev_environment = "local"
+let configs = {
+	local: {
+		url: "http://localhost:6666",
+		uname: "276822603@qq.com",
+		pwd: "qwer1236",
+		initProjectName: "b"
+	},
+	online: {
+		url: "http://101.133.234.110:9998",
+		uname: "276822603@qq.com",
+		pwd: "123456",
+		initProjectName: "a"
+	}
+}
+var BIMSERVER_URL = configs[dev_environment].url
+var BIMSERVER_UNAME = configs[dev_environment].uname
+var BIMSERVER_PWD = configs[dev_environment].pwd
+var INIT_PROJRCT_NAME = configs[dev_environment].initProjectName
 var tools = {}
+
 define([
 	"../../dependency/bimsurfer/src/BimSurfer",
 	"../../dependency/bimsurfer/src/BimServerModelLoader",
@@ -58,7 +74,7 @@ define([
 		bimSurfer.on("loading-finished", function () {
 			console.timeEnd("加载模型用时")
 			// 加载成功提示信息
-			Vue.prototype.$msg("success", "加载成功",1000)
+			Vue.prototype.$msg("success", "加载成功", 1000)
 			// 保存初始相机位置
 			tools.primaryCamera = bimSurfer.saveReset({ camera: true }).camera
 			// 初始化zTree目录树

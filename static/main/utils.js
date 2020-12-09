@@ -16,9 +16,9 @@ define(function () {
 			duration: duration || 1500,
 			center: true
 		})
-	}	
+	}
 	// 下载JSON到本地方法
-	function load2Local(fileName,data) {
+	function load2Local(fileName, data) {
 		const blob = new Blob([data], { type: "text/plain" })
 		//const blob = new Blob([data], {type: 'audio/wav'})
 		const a = document.createElement("a")
@@ -28,9 +28,21 @@ define(function () {
 		URL.revokeObjectURL(a.href)
 		a.remove()
 	}
+	function waitToken(token) {
+		return new Promise((resolve, reject) => {
+			if (token) {
+				resolve()
+			} else {
+				setTimeout(() => {
+					waitToken(token)
+				}, 500)
+			}
+		})
+	}
 	return {
 		execAction,
 		cusMessage,
-		load2Local
+		load2Local,
+		waitToken
 	}
 })
